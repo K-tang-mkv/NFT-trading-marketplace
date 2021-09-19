@@ -16,6 +16,18 @@ var userschema = mongoose.Schema ({
 // var NFT = mongoose.model('NFT', userschema)
 module.exports = mongoose.model('NFT', userschema)
 
+// NFT.insertMany({
+//     user:'shen',
+//     NFTname:'man',
+//     opus:'djfkdjfk'
+// }, function (err, ret) {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         console.log(ret);
+//     }
+// })
+
 // new NFT({
 //     user: '吴灶凯',
 //     NFTname:'god',

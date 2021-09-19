@@ -24,7 +24,12 @@ router.post('/upload', multer({ dest: 'upload' }).single('file'), (req, res) => 
     console.log(req.file)
     fs.renameSync(req.file.path, 'upload/' + req.file.originalname)
     req.file.path = '/upload' + req.file.originalname
-    res.send(req.file.originalname)
+    //res.send(req.file.originalname)
+    User.insertMany({
+        user: req.file.username,
+        NFTname: req.file.ntfname,
+        opus: req.file.path
+    })
 })
 router.get('/download', (req, res) => {
     console.log(req.query)
