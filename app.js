@@ -9,6 +9,8 @@ var app = express()
 app.use('/public/', express.static('./public/'))
 app.use('/node_modules/', express.static('./node_modules/'))
 app.use('/upload/', express.static('./upload/'))
+app.use('/views/', express.static('./views/'))
+
 
 // 加载express模板引擎
 app.engine('html', require('express-art-template'))

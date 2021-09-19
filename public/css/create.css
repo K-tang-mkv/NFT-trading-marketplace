@@ -1,3 +1,9 @@
+
+@media screen and (min-width:1200px) {
+    html {
+        font-size: 120px !important;
+    }
+}
 .shortcut ul li:nth-child(2) {
     border-bottom: 1px solid blue;
 }
@@ -5,35 +11,40 @@
     border: none;
 }
 h1 { 
-    margin:0;    
+    margin:0;  
+    font-size: 2em;  
 }
 a{
     text-decoration: none!important;
+}
+p {
+    font-size: .1rem;
 }
 article {
     
     
     position: relative;
-    top: 90px;
-    padding-left:270px;
-    padding-right: 270px; 
+    top: .75rem;
+    padding-left:2.25rem;
+    padding-right: 2.25rem; 
     background: #fff;
     
     
 }
 article h3 {
-    
-    margin-bottom: 6px!important;
+    font-size: .2rem;
+    margin-bottom: .05rem!important;
     margin-top: 0!important;
     
 }
 article h4 {
-    margin-bottom: 6px!important;
+    font-size: .15rem;
+    margin-bottom: .05rem!important;
     margin-top: 0!important;
 }
 
 .item-type {
-    margin-bottom: 6PX!important;
+    margin-bottom: .041667rem!important;
     margin-top: 0!important;
 }
 .new_item{
@@ -42,35 +53,42 @@ article h4 {
 }
 .item_uplode {
    
+    display: flex;
     position: relative;
-    margin-right: 300PX;
-    margin-bottom: 30px;
+    align-items: center;
+    justify-content: center;
+    margin-right:1.083333rem;
+    margin-bottom: .25rem;
     border: 3px dashed rgb(229, 232, 235);
     
 }
 .item-flie {
-    opacity: 0; 
+     opacity: 0; 
      width: 100%;
-     height: 250px;
+     height: 2.083333rem;
+     cursor: pointer;
     
 }
 .tips {
-    position:  absolute;
-    top: 90px;
-    left: 35%;
+    position: absolute;
     text-align: center;
+    
 
 }
 .item_uplode1 img {
-    margin-bottom: 5px;
+   
+    max-width: 100%;
+    height: auto;
+    margin-bottom: .041667rem;
+    
 }
 .name {
-    margin-bottom:  70px;
+    margin-bottom:  .583333rem;
 }
 .name  input,.link input {
     width: 100%;
     line-height: 3;
-    border-radius: 8px;
+    border-radius: .066667rem;
     border:1px solid #ccc;
     
 }
@@ -79,22 +97,22 @@ article h4 {
 
  }  */
 .link {
-    margin-bottom: 50px;
+    margin-bottom: .416667rem;
 }
 
 p{
-    margin-bottom: 5px;
+    margin-bottom: .041667rem;
 }
 textarea{
     width: 100%;
-    padding-left: 10px;
-    padding-top:10px;
+    padding-left: .083333rem;
+    padding-top: .083333rem;
     color: #666;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: .066667rem;
 }
 .detail {
-    margin-bottom: 50px;
+    margin-bottom: .416667rem;
 }
 /* textarea:hover{
     box-shadow: 0 0 12px  2px rgba(0,0,0,.3);
@@ -103,7 +121,7 @@ textarea{
 
 .choose {
     /* position: relative; */
-    height: 100px;
+    height: .833333rem;
     /* overflow: hidden; */
     background-color: #fff;
     margin-bottom: 50px;
@@ -111,7 +129,7 @@ textarea{
 .BlockChain{
     position: relative;
     width:100%;
-    height:48px;
+    height: .4rem;
     overflow:hidden;
     
 }
@@ -122,15 +140,15 @@ textarea{
     
 } */
 .Ethereum img ,.polygon img{
-    border-radius: 16px;
+    border-radius: .133333rem;
 }
 .Ethereum,.polygon{
     position:absolute;
     border: 1pX solid #ccc;
     height:100%;
     width:100%;
-    padding-left:15px;
-    line-height: 48px;
+    padding-left:.125rem;
+    line-height: .4rem;
     cursor:pointer;
 }
 .polygon{
@@ -138,15 +156,15 @@ textarea{
 }
 .choose span {
     float:right;
-    line-height: 48px;
-    margin-right: 5px;
+    line-height: .4rem;
+    margin-right: .041667rem;
     cursor: pointer;
     color: #ccc;
 }
 .polygon img {
-    max-width: 32px;
-    max-height: 32px;
+    max-width: .266667rem;
+    max-height: .266667rem;
 }
 .shadow{
-    box-shadow: 0 1px 8px  1px rgba(0,0,0,.3)!important;
+    box-shadow: 0 .008333rem .066667rem  .008333rem rgba(0,0,0,.3)!important;
 }

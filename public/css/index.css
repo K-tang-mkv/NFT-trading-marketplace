@@ -2,11 +2,11 @@
 .banner {
     pointer-events: none;
     position: relative;
-    height: 600px;
+    height: 5rem;
     display: flex;
-    font-size: 16px;
+    font-size: .133333rem;
     font-weight: 600;
-    padding-left: 10px;
+    padding-left: .083333rem;
    
     
 }
@@ -36,36 +36,36 @@
 }
 .banner .banner-text h1 {
 
-    margin-top: 180px;
-    font-size: 45px;
+    margin-top: 1.5rem;
+    font-size: .375rem;
     color: rgb(4, 17, 29);
    
 
 }
 .banner .banner-text h2 {
-    font-size: 24px;
+    font-size: .2rem;
     font-weight: 400;
 
 }
 .banner-text li {
     float: left;
-    margin-right: 50px;
+    margin-right: .416667rem;
     pointer-events: auto;
     
    
 }
 .banner-text li:hover {
-    box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, .3);
+    box-shadow: .008333rem .008333rem .1rem .008333rem rgba(0, 0, 0, .3);
 }
 .banner-text li:nth-of-type(1) a ,.banner-text li:nth-of-type(2) a {
     display: block;
-    width: 167px;
-    height: 49.6px;
-    line-height: 49.6px;
-    border: 1px solid rgb(32, 129, 226);
+    width: 1.391667rem;
+    height: .408333rem;
+    line-height: .413333rem;
+    border: .008333rem solid rgb(32, 129, 226);
     text-align: center;
     color: rgb(255, 255, 255);
-    border-radius: 5px;
+    border-radius: .041667rem;
     background-color:rgb(32, 129, 226);
 }
 .banner-text li:nth-of-type(1) a  {
@@ -88,31 +88,31 @@
 }
 .banner-img .banner-works {
     pointer-events: auto;
-    margin-top: 100px;
-    width: 550px;
-    border-radius: 8px;
+    margin-top: .833333rem;
+    width: 4.583333rem;
+    border-radius: .066667rem;
     margin-left:  auto;
     margin-right: auto;
     overflow: hidden;
     transition: all 0.5s  ;
 }
 .banner-works:hover{
-    box-shadow: 1px 1px 12px 1px rgba(0, 0, 0, .3);
-    transform: translateY(-10px);
+    box-shadow: .008333rem .008333rem .1rem .008333rem rgba(0, 0, 0, .3);
+    transform: translateY(-0.083333rem);
 }
 .banner-img img {
   
-    width: 550px;
-    height: 429px;
+    width: 4.583333rem;
+    height: 3.575rem;
 
 }
 .banner .works_introduce {
     display: flex;
     flex-direction: row;
     background:#fff;
-    height: 70px;
-    font-size:14px;
-    padding:16px;
+    height:.583333rem;
+    font-size:0.116667rem;
+    padding:.133333rem;
 }
 .banner .works_introduce h3 {
     font-weight: 600;
@@ -120,19 +120,19 @@
 }
 
 .banner .works_introduce img {
-    width:40px;
-    height: 40px;
+    width:.333333rem;
+    height: .333333rem;
 }
 .banner .works_introduce .suibian2 {
     height: 100%;
     flex:1;
 }
 .banner .suibian {
-    width: 40px!important;
-    height: 40px!important;
-    border-radius: 20px;
+    width: .333333rem!important;
+    height: .333333rem!important;
+    border-radius: .166667rem;
     overflow: hidden;
-    margin-right: 20px;
+    margin-right: .166667rem;
 }
 .banner .introduce{
    
