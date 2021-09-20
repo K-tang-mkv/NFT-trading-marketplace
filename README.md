@@ -1,19 +1,34 @@
 # NFT-trading-marketplace
  * Build a decentralized platform to discover, create, and trade NFT collectibles.
 ## 应用架构
-  ![image](https://user-images.githubusercontent.com/59059785/133036666-dc03e94a-95d1-485c-9426-5a53d37d75f3.png)
+  ![21632104439_ pic_hd](https://user-images.githubusercontent.com/59059785/133951687-03fbc0e5-350d-4200-a7e0-b17635940c7c.jpg)
   
-## 功能图
-  ![Screen Shot 2021-09-13 at 5 12 48 PM](https://user-images.githubusercontent.com/59059785/133057402-b4fea1fc-f04a-401a-a586-92cb91a79766.png)
-  该应用分为七个功能模块：
-- 首页
-- NFT市场
-- 个人账户
-- 创造NFT
-- 购买NFT
-- 售卖NFT
-- ...
+  
+  
+  
+## 功能板块
+  ![Screen Shot 2021-09-20 at 9 44 50 AM](https://user-images.githubusercontent.com/59059785/133950522-4c89256e-5087-4559-9060-b76632f22502.png)
+
+  该应用分为五个板块和三大功能：
+- 板块
+
+  首页，市场，个人账户，帮助中心，和钱包连接
+- 功能
+
+  创作，购买和售卖NFT
 ### 首页
-首页模块包含了优质NFT的展示，以及进入NFT市场的开始探索按钮，引导用户进入NFT交易市场。
+首页模块包含了优质NFT的展示，进行nft作品的创作，以及进入NFT市场的开始探索按钮，引导用户进入NFT交易市场。
 ### NFT市场
 NFT交易市场模块包含NFT的所有产品展示，产品类目列表，包括：新品，艺术，音乐和收藏卡类目，以及搜索栏目，引导用户更快的找到自己心仪的产品。
+可以选择具体的NFT进行购买，选择的NFT会展示商品具体的信息。
+### 个人账户
+展示个人信息和收藏的所有NFT作品，还有其他的分类如个人创作的NFT，最喜欢的NFT等。可以选择售卖自己创作的NFT作品，并在市场中发出挂单信息。
+### 帮助中心
+引导用户操作
+
+### 创作NFT
+上传自己的数字作品，包括图片，视频和文字，支持多文件格式上传，输入作品的名称，描述和作品URL（指向作品的信息）。上传的图片或视频被发送到IPFS进行存储并获的返回的哈希值。将哈希值作为tokenuri记录至链上，作品的其他信息存入mongodb中以便查询。
+### 售卖NFT
+选择自己创作的NFT，设置卖出的价格，连接钱包，确认将NFT所有权转入交易智能合约中托管，当合约被触发后，所有权自动转为购买者的地址。
+### 购买NFT
+选择要购买的NFT，连接钱包，查询钱包余额是否充足，不足的话需要自行提币到钱包来购买，若充足的话将确认交易，并获得NFT的所有权。
