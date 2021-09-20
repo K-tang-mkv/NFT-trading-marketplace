@@ -5,13 +5,11 @@ var session = require('express-session')//记录保持登录信息
 var app = express()
 var a = require('fs')
 // 开放公共资源
-app.use('/public/', express.static('./public/'))
-app.use('/views/', express.static('./views/'))
+
 app.use('/node_modules/', express.static('./node_modules/'))
-app.use('/upload/', express.static('./upload/'))
 app.use('/views/', express.static('./views/'))
-
-
+app.use('/public/', express.static('./public/'))
+app.use('/upload/', express.static('./upload/'))
 // 加载express模板引擎
 app.engine('html', require('express-art-template'))
 

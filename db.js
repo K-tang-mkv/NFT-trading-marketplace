@@ -11,15 +11,23 @@ var userschema = mongoose.Schema ({
     },
     opus: {
         type: String
+    },
+    comment: {
+        type: String
+    },
+    url: {
+        type: String
     }
 })
-// var NFT = mongoose.model('NFT', userschema)
+var NFT = mongoose.model('NFT', userschema)
 module.exports = mongoose.model('NFT', userschema)
 
 // NFT.insertMany({
 //     user:'shen',
 //     NFTname:'man',
-//     opus:'djfkdjfk'
+//     opus: '/upload/鸣佐.jpeg',
+//     comment: '神作啊！！！',
+//     url:'fdfff'
 // }, function (err, ret) {
 //     if (err) {
 //         console.log(err);

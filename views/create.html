@@ -56,15 +56,17 @@
                     <img src="/public/images/named.jpg" alt="">
                     <p>请上传文件</p>
                 </div>
-                <input class="item-flie" type="file" id="exampleInputFile">
+                <input class="item-flie" type="file" id="exampleInputFile" required="required" name="opus">
             </div>
         </section>
+        <form action="/uploading" method="POST" id="upload">
         <section class="name">
+
             <header>
                 <h4>名字* </h4>
             </header>
             <input class="input0" type="text" required="required" placeholder="作品名称"
-                style="border:1px solid #ccc ;padding-left:5px">
+                style="border:1px solid #ccc ;padding-left:5px" name="NTFname">
         </section>
         <section class="link">
             <header>
@@ -75,7 +77,7 @@
             </header>
 
             <input class="input1" type="url" required="required" placeholder="https://yoursite.io/item/123"
-                style="border:1px solid #ccc ;padding-left:5px">
+                style="border:1px solid #ccc ;padding-left:5px" name="url">
 
 
         </section>
@@ -84,7 +86,7 @@
                 <h4>描述</h4>
                 <p>描述将包含在项目的详细信息页面上，位于其图像下方，支持 Markdown 语法。</p>
             </header>
-            <textarea name="detail" id="detail" cols="30" rows="10" style="resize:none ;outline:none">提供关于你们项目的细节
+            <textarea id="detail" cols="30" rows="10" style="resize:none ;outline:none" name="detail">提供关于你们项目的细节
            </textarea>
         </section>
         <section class="choose">
@@ -106,13 +108,32 @@
                 </div>
             </div>
         </section>
-        <button type="button" class="btn btn-primary">创作</button>
-
-
-
+        <button type="submit" class="btn btn-primary" @click="uping">创作</button>
+        </form>
     </article>
     <script src="/public/script/document1.js"></script>
     <script src="/public/script/document.js"></script>
+    <script src="/public/script/vue.js"></script>
+    <script src="/node_modules/axios/dist/axios.min.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#upload',
+            methods: {
+                uping: function () {
+                    axios.post('/uploading', {
+                    }).then(function (response) {
+                        if (response.message == '1') {
+                            window.Location.href = '/'
+                        } else {
+                            alert('上传失败')
+                        }
+                    }).catch(function (err) {
+                        console.log(err);
+                    })
+                }
+            }
+        })
+    </script>
 </body>
 
 </html>
