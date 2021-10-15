@@ -1,0 +1,358 @@
+/* 展示区 */
+@media screen and (min-width:1200px) {
+    html {
+        font-size: 120px !important;
+    }
+}
+
+@font-face {
+    font-family: 'icomoon';
+    src: url('/fonts/icomoon.eot?tomleg');
+    src: url('/fonts/icomoon.eot?tomleg#iefix') format('embedded-opentype'),
+        url('/fonts/icomoon.ttf?tomleg') format('truetype'),
+        url('/fonts/icomoon.woff?tomleg') format('woff'),
+        url('/fonts/icomoon.svg?tomleg#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block;
+}
+
+
+.banner {
+    pointer-events: none;
+    position: relative;
+    height: 5rem;
+    display: flex;
+    font-size: .133333rem;
+    font-weight: 600;
+    padding-left: .083333rem;
+
+
+}
+
+.banner-bg {
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background: url(/unnamed.jpg) no-repeat;
+    background-size: 100% auto;
+    opacity: .2;
+    filter: blur(8px);
+
+
+}
+
+.banner-img,
+.banner-text {
+
+    flex: 1;
+}
+
+.banner-text {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.banner .banner-text h1 {
+
+    margin-top: 1.5rem;
+    font-size: .375rem;
+    color: rgb(4, 17, 29);
+
+
+}
+
+.banner .banner-text h2 {
+    font-size: .2rem;
+    font-weight: 400;
+
+}
+
+.banner-text li {
+    float: left;
+    margin-right: .416667rem;
+    pointer-events: auto;
+
+
+}
+
+.banner-text li:hover {
+    box-shadow: .008333rem .008333rem .1rem .008333rem rgba(0, 0, 0, .3);
+}
+
+.banner-text li:nth-of-type(1) a,
+.banner-text li:nth-of-type(2) a {
+    display: block;
+    width: 1.391667rem;
+    height: .408333rem;
+    line-height: .413333rem;
+    border: .008333rem solid rgb(32, 129, 226);
+    text-align: center;
+    color: rgb(255, 255, 255);
+    border-radius: .041667rem;
+    background-color: rgb(32, 129, 226);
+}
+
+.banner-text li:nth-of-type(1) a {
+
+
+    color: rgb(255, 255, 255);
+
+    background-color: rgb(32, 129, 226);
+}
+
+.banner-text li:nth-of-type(2) a {
+
+    color: rgb(32, 129, 226);
+
+    background-color: #fff;
+}
+
+.banner-img img {
+    text-align: center;
+
+
+}
+
+.banner-img .banner-works {
+    pointer-events: auto;
+    margin-top: .833333rem;
+    width: 4.583333rem;
+    border-radius: .066667rem;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    transition: all 0.5s;
+}
+
+.banner-works:hover {
+    box-shadow: .008333rem .008333rem .1rem .008333rem rgba(0, 0, 0, .3);
+    transform: translateY(-0.083333rem);
+}
+
+.banner-img img {
+
+    width: 4.583333rem;
+    height: 3.575rem;
+
+}
+
+.banner .works_introduce {
+    display: flex;
+    flex-direction: row;
+    background: #fff;
+    height: .583333rem;
+    font-size: 0.116667rem;
+    padding: .133333rem;
+}
+
+.banner .works_introduce h3 {
+    font-weight: 600;
+    color: rgb(4, 17, 29);
+}
+
+.banner .works_introduce img {
+    width: .333333rem;
+    height: .333333rem;
+}
+
+.banner .works_introduce .suibian2 {
+    height: 100%;
+    flex: 1;
+}
+
+.banner .suibian {
+    width: .333333rem !important;
+    height: .333333rem !important;
+    border-radius: .166667rem;
+    overflow: hidden;
+    margin-right: .166667rem;
+}
+
+.banner .introduce {
+
+    pointer-events: auto;
+    color: rgb(32, 129, 226);
+
+
+}
+
+.banner .introduce:hover {
+    color: rgb(24, 104, 183)
+}
+
+.market_banner {
+    width: 100%;
+}
+
+.market_banner_search {
+    display: flex;
+    width: 100%;
+    height: 160px;
+    justify-content: center;
+    padding-top: 72px;
+    align-items: center;
+}
+
+.market_banner_search .input_div {
+    flex: 0.6;
+    font-size: 20px;
+    height: 50px;
+    display: flex;
+    position: relative;
+}
+
+.market_banner_search .input_div::before {
+    position: absolute;
+    font-family: 'icomoon';
+    content: '';
+    left: 20px;
+    line-height: 50px;
+}
+
+.market_banner_search input {
+    border-radius: 25px;
+    flex: 1;
+    padding-left: 60px;
+    /* padding-left: 80px; */
+    border: 1px solid rgba(0, 0, 0, .3);
+
+}
+
+.market_banner .market_banner_section {
+    width: 100%;
+    display: flex;
+}
+
+.market_banner_section .market_banner_nav {
+    flex: 0.2;
+
+}
+
+.market_banner_section .market_banner_nav ul {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.market_banner_section .market_banner_nav .market_banner_nav_ul li {
+    display: block;
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
+    line-height: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+}
+
+.market_banner_section .market_banner_photo {
+    flex: 0.8;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+}
+
+.market_banner_photo .market_banner_photo_list {
+    transition: all .3s;
+    flex: 45%;
+    margin-left: 5%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-width: 430px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+}
+
+.market_banner_photo .market_banner_photo_list:hover {
+    box-shadow: 0 0 12px 1px;
+    transform: translateY(-10px);
+}
+
+
+.photo_list_img {
+    width: 100%;
+    max-width: 430px;
+}
+
+.photo_list_photo_div {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.photo_list_photo_div .photo_list_p {
+    flex: 1;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: rgb(112, 122, 131);
+    font-size: 16px;
+
+}
+
+.photo_list_photo_div .photo_list_photo_div_div {
+    flex: 3;
+    padding: 0 0 10px 10px;
+    color: #222;
+}
+
+.photo_list_photo_div_div .photo_list_pone {
+    font-size: 16px;
+}
+
+.photo_list_photo_div1 {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    position: relative;
+}
+
+.photo_list_photo_div1 .photo_list_photo_p1 {
+    flex: 1;
+    text-align: end;
+    margin: 30px 5px 0 0;
+    font-size: 15px;
+}
+
+.photo_list_photo_div1 .photo_list_photo_button {
+    position: absolute;
+    top: -100px;
+    left: -50%;
+    margin-left: 60px;
+    display: none;
+    width: 80px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(32, 129, 226);
+    border: 1px solid rgb(32, 129, 226);
+    height: 30px;
+    border-radius: 10px;
+    cursor: hand;
+    box-shadow: 0 0 4px .5px;
+}
+
+.change {
+    background-color: #ccc;
+    font-weight: 700;
+    color: #fff;
+
+}
+
+.li1 {
+    border-radius: 5px;
+
+}
+
+.up {
+    margin-top: 0;
+}

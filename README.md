@@ -1,34 +1,34 @@
-# NFT-trading-marketplace
- * Build a decentralized platform to discover, create, and trade NFT collectibles.
-## 应用架构
-  ![21632104439_ pic_hd](https://user-images.githubusercontent.com/59059785/133951687-03fbc0e5-350d-4200-a7e0-b17635940c7c.jpg)
-  
-  
-  
-  
-## 功能板块
-  ![Screen Shot 2021-09-20 at 9 44 50 AM](https://user-images.githubusercontent.com/59059785/133950522-4c89256e-5087-4559-9060-b76632f22502.png)
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-  该应用分为五个板块和三大功能：
-- 板块
+## Getting Started
 
-  首页，市场，个人账户，帮助中心，和钱包连接
-- 功能
+First, run the development server:
 
-  创作，购买和售卖NFT
-### 首页
-首页模块包含了优质NFT的展示，进行nft作品的创作，以及进入NFT市场的开始探索按钮，引导用户进入NFT交易市场。
-### NFT市场
-NFT交易市场模块包含NFT的所有产品展示，产品类目列表，包括：新品，艺术，音乐和收藏卡类目，以及搜索栏目，引导用户更快的找到自己心仪的产品。
-可以选择具体的NFT进行购买，选择的NFT会展示商品具体的信息。
-### 个人账户
-展示个人信息和收藏的所有NFT作品，还有其他的分类如个人创作的NFT，最喜欢的NFT等。可以选择售卖自己创作的NFT作品，并在市场中发出挂单信息。
-### 帮助中心
-引导用户操作
+```bash
+npm run dev
+# or
+yarn dev
+```
 
-### 创作NFT
-上传自己的数字作品，包括图片，视频和文字，支持多文件格式上传，输入作品的名称，描述和作品URL（指向作品的信息）。上传的图片或视频被发送到IPFS进行存储并获的返回的哈希值。将哈希值作为tokenuri记录至链上，作品的其他信息存入mongodb中以便查询。
-### 售卖NFT
-选择自己创作的NFT，设置卖出的价格，连接钱包，确认将NFT所有权转入交易智能合约中托管，当合约被触发后，所有权自动转为购买者的地址。
-### 购买NFT
-选择要购买的NFT，连接钱包，查询钱包余额是否充足，不足的话需要自行提币到钱包来购买，若充足的话将确认交易，并获得NFT的所有权。
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+
+## Learn More
+
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
