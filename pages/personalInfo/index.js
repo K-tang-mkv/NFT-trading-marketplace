@@ -4,7 +4,9 @@ import axios from 'axios'
 import Web3Modal from "web3modal"
 import Head from 'next/head'
 import Link from "next/link"
-import Image from 'next/dist/client/image'
+import Script from 'next/script'
+
+import Image from 'next/image'
 import $ from 'jquery'
 
 import {
@@ -159,22 +161,22 @@ export default function MyAssets() {
                 <link rel="stylesheet" href="../../static/css/index.css" />
                 <link rel="stylesheet" href="../../static/css/information.css" />
                 
-                <header class="shortcut ">
-                    <div class="logo">
+                <header className="shortcut ">
+                    <div className="logo">
                         <h1>
-                            <a href="/">
-                                NFT交易市场
-                            </a>
+                            <Link href="/">
+                                <a>NFT交易市场</a>
+                            </Link>
                         </h1>
                     </div>
-                    <nav class="shortcut_nav">
+                    <nav className="shortcut_nav">
                         <ul>
                             <li>
-                                <input type="search" placeholder="查找" name="search" autofocus="autofocus"></input>
+                                <input type="search" placeholder="查找" name="search" autoFocus="autofocus"></input>
                             </li>
-                            <li class="shortcut_nav_li1">
-                                <a href="/create">创作</a>
-                                <div class="shortcut_nav_div1">
+                            <li className="shortcut_nav_li1">
+                                <Link href="/create"><a>创作</a></Link>
+                                <div className="shortcut_nav_div1">
                                     <a href="#">所有NFT</a>
                                     <a href="#">新的</a>
                                     <a href="#">艺术</a>
@@ -185,15 +187,15 @@ export default function MyAssets() {
                                     <a href="#">收藏品</a>
                                 </div>
                             </li>
-                            <li class="shortcut_nav_li2">
-                                <a href="/create">上传</a>
-                                <div class="shortcut_nav_div2">
+                            <li className="shortcut_nav_li2">
+                                <Link href="/create"><a>上传</a></Link>
+                                <div className="shortcut_nav_div2">
                                     <a href="#">排名</a>
                                     <a href="#">活动</a>
                                 </div>
                             </li>
-                            <li class="shortcut_nav_li3">
-                                <a href="/market">市场</a>
+                            <li className="shortcut_nav_li3">
+                                <Link href="/market"><a>市场</a></Link>
                                 <div>
                                     <a href="#">帮助中心</a>
                                     <a href="#">平台状况</a>
@@ -211,54 +213,57 @@ export default function MyAssets() {
                     </nav>
                 </header>
                 <img src="/metaMaskLogo.png" className="pic" />
-                <h1 class="drop">Please Install Metamask</h1>
+                <h1 className="drop">Please Install Metamask</h1>
             </div>)
     }
     else {
         return (
             <div>
-
+            
+                
                 <Head>
                     <meta charset="UTF-8" />
-                    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>NFC交易市场</title>
-                    <script>
-                        $(".work .banner .market_banner_photo").eq(0).show().siblings(".market_banner_photo").hide()
-
-
-                    </script>
-                    <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" />
-                    <link rel="stylesheet" href="../../static/css/base.css" />
-                    <link rel="stylesheet" href="../../static/css/commoon.css" />
-                    <link rel="stylesheet" href="../../static/css/information.css" />
-                    <link rel="stylesheet" href="../../static/css/index.css" />
+                    <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
+                    
+                    
+                    <script async type="text/javascript" src="/static/lib/bootstrap.min.js"/>
+                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"/>
+                    <script async type="text/javascript" src="/static/lib/jq.js"/>
+                    
+                    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css"/>
+                    
+                    <link rel="stylesheet" href="/css/commoon.css" />
+                    <link rel="stylesheet" href="/css/information.css" />
+                    <link rel="stylesheet" href="/css/index.css" />
                 </Head>
 
-                <script src="../../static/lib-flexible-2.0/index.js" />
+               
 
-                <script src="../../static/lib/jquery.min.js" />
+                
 
                 <main>
-                    <header class="shortcut ">
-                        <div class="logo">
+                    <header className="shortcut ">
+                        <div className="logo">
                             <h1>
-                                <a href="/">
-                                    NFT交易市场
-                                </a>
+                                <Link href="/">
+                                    <a>NFT交易市场</a>
+                                </Link>
                             </h1>
                         </div>
-                        <nav class="shortcut_nav">
+                        <nav className="shortcut_nav">
                             <ul>
                                 <li>
-                                    <input type="search" placeholder="查找" name="search" autofocus="autofocus"></input>
+                                    <input type="search" placeholder="查找" name="search" autoFocus="autofocus"></input>
                                 </li>
-                                <li class="shortcut_nav_li1">
-                                    <a href="/create">创作</a>
-                                    <div class="shortcut_nav_div1">
-                                        <a href="/market">所有NFT</a>
+                                <li className="shortcut_nav_li1">
+                                    <Link href="/create"><a>创作</a></Link>
+                                    <div className="shortcut_nav_div1">
+                                        <Link href="/market"><a>所有NFT</a></Link>
                                         <a href="#">新的</a>
-                                        <a href="/market">艺术</a>
+                                        <a href="#">艺术</a>
                                         <a href="#">音乐</a>
                                         <a href="#">域名</a>
                                         <a href="#">虚拟世界</a>
@@ -266,15 +271,15 @@ export default function MyAssets() {
                                         <a href="#">收藏品</a>
                                     </div>
                                 </li>
-                                <li class="shortcut_nav_li2">
-                                    <a href="/create">上传</a>
-                                    <div class="shortcut_nav_div2">
+                                <li className="shortcut_nav_li2">
+                                    <Link href="/create"><a>上传</a></Link>
+                                    <div className="shortcut_nav_div2">
                                         <a href="#">排名</a>
                                         <a href="#">活动</a>
                                     </div>
                                 </li>
-                                <li class="shortcut_nav_li3">
-                                    <a href="market">市场</a>
+                                <li className="shortcut_nav_li3">
+                                    <Link href="/market"><a>市场</a></Link>
                                     <div>
                                         <a href="#">帮助中心</a>
                                         <a href="#">平台状况</a>
@@ -292,37 +297,37 @@ export default function MyAssets() {
                         </nav>
                     </header>
                     <div style={linkStyle.div}>
-                        <section class="bg">
+                        <section className="bg">
                             <input type="file"></input>
-                            <div class="bgc"></div>
+                            <div className="bgc"></div>
                         </section>
 
-                        <section class="imformation">
-                            <div class="img">
+                        <section className="imformation">
+                            <div className="img">
                                 <input type="file"></input>
                             </div>
-                            <div class="button">
-                                <div class="btn-group share">
-                                    <div class="shares">
+                            <div className="button">
+                                <div className="btn-group share">
+                                    <div className="shares">
                                         <div></div>分享
                                     </div>
-                                    <button type="button" class="btn btn-default dropdown-toggle  glyphicon glyphicon-share button1"
+                                    <button type="button" className="btn btn-default dropdown-toggle  glyphicon glyphicon-share button1"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </button>
-                                    <ul class="dropdown-menu menu">
-                                        <li><a href="#" class="link">复制链接</a></li>
-                                        <li><a href="#" class="wechat">分享给微信好友</a></li>
-                                        <li><a href="#" class="qq">分享给qq好友</a></li>
+                                    <ul className="dropdown-menu menu">
+                                        <li><a href="#" className="link">复制链接</a></li>
+                                        <li><a href="#" className="wechat">分享给微信好友</a></li>
+                                        <li><a href="#" className="qq">分享给qq好友</a></li>
 
                                     </ul>
                                 </div>
 
-                                <div class="btn-group" style={linkStyle.div1}>
+                                <div className="btn-group" style={linkStyle.div1}>
                                     <button type="button"
-                                        class="btn btn-default dropdown-toggle glyphicon glyphicon-option-vertical   button2"
+                                        className="btn btn-default dropdown-toggle glyphicon glyphicon-option-vertical   button2"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </button>
-                                    <ul class="dropdown-menu menu">
+                                    <ul className="dropdown-menu menu">
                                         <li><a href="#">设置</a></li>
 
 
@@ -334,8 +339,8 @@ export default function MyAssets() {
 
                             <h2 style={linkStyle.h2}>未命名</h2>
 
-                            <a class="adress" href="javascript:;" onMouseOver={(e) => copy(e)}>
-                                <div class="copy">
+                            <a className="adress" href="javascript:;" onMouseOver={(e) => copy(e)}>
+                                <div className="copy">
                                     <div></div>复制
 
                                 </div>
@@ -343,10 +348,10 @@ export default function MyAssets() {
                             </a>
                             <p>自2021年9月注册</p>
                         </section>
-                        <section class="work">、
+                        <section className="work">、
                             <header>
                                 <ul>
-                                    <li class="border" onClick={(e) => show(e)}><strong>收集</strong> 1</li>
+                                    <li className="border" onClick={(e) => show(e)}><strong>收集</strong> 1</li>
                                     <li><strong>创作</strong> 0</li>
                                     <li><strong>喜欢</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
@@ -355,20 +360,20 @@ export default function MyAssets() {
                                     <li><strong>参考文献</strong></li>
                                 </ul>
                             </header>
-                            <div class="body">
-                                <div class="tool">
-                                    <div class="input-group input-group-lg " style={linkStyle.div3}>
-                                        <input type="text" class="form-control text" placeholder="Search for..."></input>
-                                        <span class="input-group-btn" style={linkStyle.span}>
-                                            <button class="btn btn-default  bun2" type="button">搜索</button>
+                            <div className="body">
+                                <div className="tool">
+                                    <div className="input-group input-group-lg " style={linkStyle.div3}>
+                                        <input type="text" className="form-control text" placeholder="Search for..."></input>
+                                        <span className="input-group-btn" style={linkStyle.span}>
+                                            <button className="btn btn-default  bun2" type="button">搜索</button>
                                         </span>
                                     </div>
-                                    <div class="btn-group" style={linkStyle.div4}>
-                                        <button type="button" class="btn btn-default dropdown-toggle btn-lg bun1 "
+                                    <div className="btn-group" style={linkStyle.div4}>
+                                        <button type="button" className="btn btn-default dropdown-toggle btn-lg bun1 "
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={linkStyle.button}>
-                                            最近访问<span class="caret" style={linkStyle.span2}></span>
+                                            最近访问<span className="caret" style={linkStyle.span2}></span>
                                         </button>
-                                        <ul class="dropdown-menu menu2 ">
+                                        <ul className="dropdown-menu menu2 ">
                                             <li><a href="#">最近访问</a></li>
                                             <li><a href="#">最近创建过</a></li>
                                             <li><a href="#">最近交易过</a></li>
@@ -376,12 +381,12 @@ export default function MyAssets() {
                                         </ul>
                                     </div>
 
-                                    <div class="btn-group" style={linkStyle.div2}>
-                                        <button type="button" class="btn btn-default dropdown-toggle btn-lg  bun1 "
+                                    <div className="btn-group" style={linkStyle.div2}>
+                                        <button type="button" className="btn btn-default dropdown-toggle btn-lg  bun1 "
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style={linkStyle.button1}>
-                                            个人作品<span class="caret" style={linkStyle.span1}></span>
+                                            个人作品<span className="caret" style={linkStyle.span1}></span>
                                         </button>
-                                        <ul class="dropdown-menu menu2 ">
+                                        <ul className="dropdown-menu menu2 ">
                                             <li><a href="#"> 所有作品</a></li>
                                             <li><a href="#">分类</a></li>
 
@@ -394,8 +399,8 @@ export default function MyAssets() {
 
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list" onMouseMove="chu_mo">
-                                                    <img src={nft.image} class="photo_list_img" />
+                                                <div key={i} className="market_banner_photo_list">
+                                                    <img src={nft.image} className="photo_list_img" />
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -415,8 +420,8 @@ export default function MyAssets() {
                                     <div className="market_banner_photo">
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list" onMouseMove="chu_mo">
-                                                    <img src={nft.image} class="photo_list_img" />
+                                                <div key={i} className="market_banner_photo_list">
+                                                    <img src={nft.image} className="photo_list_img" />
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -436,8 +441,8 @@ export default function MyAssets() {
                                     <div className="market_banner_photo">
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list" onMouseMove="chu_mo">
-                                                    <img src={nft.image} class="photo_list_img" />
+                                                <div key={i} className="market_banner_photo_list">
+                                                    <img src={nft.image} className="photo_list_img" />
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">

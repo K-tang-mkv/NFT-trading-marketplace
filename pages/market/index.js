@@ -1,12 +1,13 @@
 
 import Head from "next/head"
 import Link from "next/link"
+
 import Web3Modal from "web3modal"
 import { useState, useEffect } from "react"
 import { ethers } from "ethers"
 
 
-import script from "next/script"
+import Script from "next/script"
 import {
     nftMarketAddress, tokenXYBaddress
 } from '../../config'
@@ -14,7 +15,7 @@ import {
 import Market from '../../abi/nftmarket.json'
 import xybToken from "../../abi/xybToken.json"
 
-export default function nftMarket() {
+export default function NftMarket() {
     const [nfts, setNfts] = useState([])
     useEffect(() => {
         loadNFTs()
@@ -40,7 +41,7 @@ export default function nftMarket() {
         var p = document.querySelectorAll(".photo_list_p")
         var lis = document.querySelectorAll(".li1");
         for (var z = 0; z < lis.length; z++) {
-            lis[z].className = "li1";
+            lis[z].className= "li1";
         }
         e.target.className = "change li1";
 
@@ -139,28 +140,30 @@ export default function nftMarket() {
 
     return (
         <div>
-
+            
             <Head>
                 <meta charset="UTF-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>NFC交易市场</title>
-                <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" />
-                <link rel="stylesheet" href="../../static/css/base.css" />
-                <link rel="stylesheet" href="../../static/css/commoon.css" />
-                <link rel="stylesheet" href="../../static/css/information.css" />
-                <link rel="stylesheet" href="../../static/css/index.css" />
-                <script src="../../static/lib-flexible-2.0/index.js" />
-                <script src="../../static/lib/jquery.min.js" />
+                <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
+                <script async type="text/javascript" src="/static/lib/bootstrap.min.js"/>
+                <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
+                <link rel="stylesheet" href="/css/base.css" />
+                <link rel="stylesheet" href="/css/commoon.css" />
+                <link rel="stylesheet" href="/css/information.css" />
+                <link rel="stylesheet" href="/css/index.css" />
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"></script>
+                
                 
             </Head>
             <main>
                 <header className="shortcut ">
                     <div className="logo">
                         <h1>
-                            <a href="/">
-                                NFT交易市场
-                            </a>
+                            <Link href="/">
+                                <a>NFT交易市场</a>
+                            </Link>
                         </h1>
                     </div>
                     <nav className="shortcut_nav">
@@ -184,18 +187,18 @@ export default function nftMarket() {
                                 </div>
                             </li>
                             <li className="shortcut_nav_li2">
-                                <a href="/create">上传</a>
+                                <Link href="/create"><a>上传</a></Link>
                                 <div className="shortcut_nav_div2">
                                     <a href="#">排名</a>
                                     <a href="#">活动</a>
                                 </div>
                             </li>
                             <li className="shortcut_nav_li3">
-                                <a href="/market">市场</a>
+                                <Link href="/market"><a>市场</a></Link>
 
                             </li>
 
-                            <li><a href="/personalInfo">个人</a></li>
+                            <li><Link href="/personalInfo"><a>个人</a></Link></li>
 
                         </ul>
                     </nav>
@@ -221,7 +224,7 @@ export default function nftMarket() {
                                 nfts.map((nft, i) => (
                                     <div key={i} className="market_banner_photo_list"
                                         onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
-                                        <img src={nft.image} class="photo_list_img" />
+                                        <img src={nft.image} className="photo_list_img" />
                                         <div className="photo_list_photo_div ">
                                             <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                             <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">

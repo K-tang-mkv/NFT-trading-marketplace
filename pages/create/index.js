@@ -1,4 +1,7 @@
 import Head from 'next/head'
+import Script from 'next/script'
+import Link from 'next/link'
+
 import { create as ipfsHttpClient } from 'ipfs-http-client'
 import { useState } from 'react'
 import { ethers } from 'ethers'
@@ -98,37 +101,39 @@ function CreatePage() {
 
             <Head>
                 <meta charset="UTF-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>创造页</title>
-                <link rel="stylesheet" href="../static/css/bootstrap/css/bootstrap.min.css" />
-                <link rel="stylesheet" href="../static/css/base.css" />
-                <link rel="stylesheet" href="../static/css/commoon.css" />
-                <link rel="stylesheet" href="../static/css/create.css" />
-
-                <script src="../../static/lib-flexible-2.0/index.js" />
-                <script src="../../static/lib/jquery.min.js" />
+                <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
+                <script async type="text/javascript" src="/static/css/bootstrap/js/bootstrap.min.js"/>
+                <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
+                {/* <link rel="stylesheet" href="../../static/css/base.css" /> */}
+                <link rel="stylesheet" href="/css/commoon.css" />
+                <link rel="stylesheet" href="/css/create.css" />
+ 
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"/>
+                
             </Head>
 
             <body>
 
-                <header class="shortcut ">
-                    <div class="logo">
+                <header className="shortcut ">
+                    <div className="logo">
                         <h1>
-                            <a href="/">
-                                NFT交易市场
-                            </a>
+                            <Link href="/">
+                                <a>NFT交易市场</a>
+                            </Link>
                         </h1>
                     </div>
-                    <nav class="shortcut_nav">
+                    <nav className="shortcut_nav">
                         <ul>
                             <li>
-                                <input type="search" placeholder="查找" name="search" autofocus="autofocus" />
+                                <input type="search" placeholder="查找" name="search" autoFocus="autofocus" />
                             </li>
-                            <li><a href="/">首页</a></li>
-                            <li><a href="/create">创作</a></li>
-                            <li><a href="/market">市场</a></li>
-                            <li><a href="/personalInfo">个人</a></li>
+                            <li><Link href="/"><a>首页</a></Link></li>
+                            <li><Link href="/create"><a>创作</a></Link></li>
+                            <li><Link href="/market"><a>市场</a></Link></li>
+                            <li><Link href="/personalInfo"><a>个人</a></Link></li>
 
                         </ul>
                     </nav>
@@ -136,28 +141,28 @@ function CreatePage() {
 
                 <article>
                     <h3>创作新的作品</h3>
-                    <section class="new_item">
+                    <section className="new_item">
                         <h4>图片，视频，音频，或 3D 模型</h4>
-                        <p class="item-type"> 文件支持以下格式: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max
+                        <p className="item-type"> 文件支持以下格式: JPG, PNG, GIF, SVG, MP4, WEBM, MP3, WAV, OGG, GLB, GLTF. Max
                             size: 40 MB</p>
-                        <div class="item_uplode">
-                            <div class="tips">
+                        <div className="item_uplode">
+                            <div className="tips">
                                 <img src={image} alt="" />
                                 <p>请上传文件</p>
                             </div>
-                            <input class="item-flie" type="file" id="exampleInputFile" required="required" name="opus" onChange={onChange} />
+                            <input className="item-flie" type="file" id="exampleInputFile" required="required" name="opus" onChange={onChange} />
                         </div>
                     </section>
                     <form action="/uploading" method="POST" id="upload">
-                        <section class="name">
+                        <section className="name">
 
                             <header>
                                 <h4>名字* </h4>
                             </header>
-                            <input class="input0" type="text" required="required" placeholder="作品名称"
+                            <input className="input0" type="text" required="required" placeholder="作品名称"
                                 style={linkStyle.input} name="NTFname" onChange={e => updateFormInput({ ...formInput, name: e.target.value })} />
                         </section>
-                        <section class="link">
+                        <section className="link">
                             <header>
                                 <h4>price</h4>
                                 <p>
@@ -165,12 +170,12 @@ function CreatePage() {
                                 </p>
                             </header>
 
-                            <input class="input1" type="url" required="required" placeholder="https://yoursite.io/item/123"
+                            <input className="input1" type="url" required="required" placeholder="https://yoursite.io/item/123"
                                 style={linkStyle.input} name="url" onChange={e => updateFormInput({ ...formInput, price: e.target.value })} />
 
 
                         </section>
-                        <section class="detail">
+                        <section className="detail">
                             <header>
                                 <h4>描述</h4>
                                 <p>描述将包含在项目的详细信息页面上，位于其图像下方，支持 Markdown 语法。</p>
@@ -181,26 +186,26 @@ function CreatePage() {
                                 onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
                             />
                         </section>
-                        <section class="choose">
+                        <section className="choose">
                             <header>
                                 <h4>区块链</h4>
                             </header>
-                            <div class="BlockChain">
-                                <div class="Ethereum">
+                            <div className="BlockChain">
+                                <div className="Ethereum">
                                     <img src="/ethereum.png" alt="" />
                                     &nbsp; &nbsp;
                                     Ethereum
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
                                 </div>
-                                <div class="polygon">
+                                <div className="polygon">
                                     <img src="/polygon.svg" alt="" />
                                     &nbsp; &nbsp;
                                     polygon
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                    <span className="glyphicon glyphicon-chevron-down"></span>
                                 </div>
                             </div>
                         </section>
-                        <button type="submit" class="btn btn-primary" onClick={createProduct}>创作</button>
+                        <button type="submit" className="btn btn-primary" onClick={createProduct}>创作</button>
                     </form>
                 </article>
             </body>

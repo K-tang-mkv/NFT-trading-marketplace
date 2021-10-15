@@ -10,10 +10,10 @@ import '../styles/base.css'
 
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
+  // useEffect(() => {
     
-    import("bootstrap/dist/js/bootstrap.js");
-  }, []);
+  //   import("bootstrap/dist/js/bootstrap.js");
+  // }, []);
   return <Component {...pageProps} />
 }
 

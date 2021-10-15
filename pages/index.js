@@ -1,32 +1,32 @@
 
 import Head from 'next/head';
 import Link from 'next/link';
-
+import Script from 'next/script'
 
 function HomePage() {
     return (
         <div>
             <Head>
                 <meta charset="UTF-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>NFC交易市场</title>
-
-                <script src="../static/lib-flexible-2.0/index.js" />
-                <script src="../static/lib/jquery.min.js" />
-                <link rel="stylesheet" href="../static/css/base.css" />
-                <link rel="stylesheet" href="../static/css/commoon.css" />
-                <link rel="stylesheet" href="../static/css/index.css" />
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive"/>
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive"/>
+                <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive"/>
+                {/* <link rel="stylesheet" href="../static/css/base.css" /> */}
+                <link rel="stylesheet" href="/css/commoon.css" />
+                <link rel="stylesheet" href="/css/index.css" />
                 
-                <script src="../static/lib/document.js" />
+                
             </Head>
             <main>
                 <header className="shortcut ">
                     <div className="logo">
-                        <h1 class="up">
-                            <a href="/">
-                                NFT交易市场
-                            </a>
+                        <h1 className="up">
+                            <Link href="/">
+                                <a>NFT交易市场</a>
+                            </Link>
                         </h1>
                     </div>
                     <nav className="shortcut_nav">
@@ -50,14 +50,14 @@ function HomePage() {
                                 </div>
                             </li>
                             <li className="shortcut_nav_li2">
-                                <a href="/create">上传</a>
+                                <Link href="/create"><a>上传</a></Link>
                                 <div className="shortcut_nav_div2">
                                     <a href="#">排名</a>
                                     <a href="#">活动</a>
                                 </div>
                             </li>
                             <li className="shortcut_nav_li3">
-                                <a href="/market">市场</a>
+                                <Link href="/market"><a>市场</a></Link>
                                 <div>
                                     <a href="#">帮助中心</a>
                                     <a href="#">平台状况</a>
@@ -69,7 +69,7 @@ function HomePage() {
 
                             </li>
 
-                            <li><a href="/personalInfo/">个人</a></li>
+                            <li><Link href="/personalInfo/"><a>个人</a></Link></li>
 
                         </ul>
                     </nav>
