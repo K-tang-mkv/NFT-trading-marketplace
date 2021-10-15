@@ -59,6 +59,8 @@ const linkStyle = {
 
 export default function MyAssets() {
     const [nfts, setNfts] = useState([])
+    const [userInfo, setUsers] = useState([])
+    const [userAddress, setAddress] = useState()
     const [loadingState, setLoadingState] = useState('not-loaded')
     useEffect(() => {
         let isMetaMaskInstalled = () => {
@@ -73,7 +75,7 @@ export default function MyAssets() {
         } else {
             show()
         }
-        //loadNFTs()
+        
 
     }, [])
     function copy(e) {
@@ -115,22 +117,46 @@ export default function MyAssets() {
         const connection = await web3Modal.connect()
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
-        console.log(1)
-        const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
-        const user = await marketContract.getUser(signer.getAddress())
+        const accountAddress = await signer.getAddress()
 
+        setAddress(accountAddress)
+
+        const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
+        const user = await marketContract.getUser(accountAddress)
+        
+        var ushering = {
+            userName: user.username,
+            headImg: user.headImg,
+            motto: user.motto,
+        }
+        setUsers(ushering)
         const pro = await marketContract.getRecommend(1)
-        const nftContract = await marketContract.getMyContract(signer.getAddress())
-        console.log(nftContract)
+        const nftContract = await marketContract.getMyContract(accountAddress)
+        
         // get the goods info of each nftContract 
         var arr = new Array();
         for (let i = 0; i < nftContract.length; i++) {
-            const info = await marketContract.getGoodsByContractAddress(nftContract[i])
+            let info = await marketContract.getGoodsByContractAddress(nftContract[i])
             for (let i = 0; i < info.length; i++) {
                 arr.push(info[i]);
             }
         }
-        console.log(arr)
+        
+        const buyNfts = await marketContract.getMyBuyOrder(accountAddress)
+        console.log(buyNfts)
+        for (let i=0;i<buyNfts.length;i++) {
+            let info = await marketContract.getGoodsByContractAddress(buyNfts[i].contractAddress)
+            const tokenId = buyNfts[i].tokenId.toNumber()
+            let owned = false
+            for (let i=0; i<arr.length;i++) {
+                if (arr[i].tokenId.toNumber() == tokenId)
+                    owned = true
+            }
+            for (let j = 0; j < info.length; j++) {
+                if (info[j].tokenId.toNumber() == tokenId && !owned)
+                    arr.push(info[j]);
+            }
+        }
         const proInfo = await Promise.all(arr.map(async i => {
             let price = ethers.utils.formatUnits(i.price.toString(), "ether")
             const imageUrl = i.headImg.toString()
@@ -145,7 +171,7 @@ export default function MyAssets() {
             }
             return item;
         }))
-        console.log(proInfo)
+        
 
         setNfts(proInfo)
         setLoadingState('loaded')
@@ -304,7 +330,8 @@ export default function MyAssets() {
 
                         <section className="imformation">
                             <div className="img">
-                                <input type="file"></input>
+                                <input src={userInfo.headImg} type="file"></input>
+                                
                             </div>
                             <div className="button">
                                 <div className="btn-group share">
@@ -337,14 +364,14 @@ export default function MyAssets() {
 
                             </div>
 
-                            <h2 style={linkStyle.h2}>未命名</h2>
-
+                            <h2 style={linkStyle.h2}>{userInfo.userName}</h2>
+                            {console.log(userInfo)}
                             <a className="adress" href="javascript:;" onMouseOver={(e) => copy(e)}>
                                 <div className="copy">
                                     <div></div>复制
 
                                 </div>
-                                0x8316...9786
+                                {userAddress}
                             </a>
                             <p>自2021年9月注册</p>
                         </section>
@@ -420,6 +447,7 @@ export default function MyAssets() {
                                     <div className="market_banner_photo">
                                         {
                                             nfts.map((nft, i) => (
+                                                
                                                 <div key={i} className="market_banner_photo_list">
                                                     <img src={nft.image} className="photo_list_img" />
                                                     <div className="photo_list_photo_div ">

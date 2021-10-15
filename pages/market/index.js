@@ -62,10 +62,10 @@ export default function NftMarket() {
     async function loadNFTs() {
 
         const provider = new ethers.providers.JsonRpcProvider("https://http-testnet.hecochain.com")
-        //const signer = provider.getSigner()
-        console.log(1)
+        
+        
         const marketContract = new ethers.Contract(nftMarketAddress, Market, provider)
-        //const user = await marketContract.getUser(signer.getAddress())
+        
         const pro = await marketContract.getRecommend(1)
         console.log(pro)
         let arr = new Array()
@@ -204,13 +204,13 @@ export default function NftMarket() {
                     </nav>
                 </header>
                 <section className="market_banner ">
-                    <div className="market_banner_search">
+                    {/* <div className="market_banner_search">
                         <div className="input_div">
                             <input type="text" className="market_control" placeholder="搜索NFT商品">
                             </input>
                         </div>
 
-                    </div>
+                    </div> */}
                     <div className="market_banner_section">
                         <div className="market_banner_nav">
                             <ul className="market_banner_nav_ul">
