@@ -357,7 +357,7 @@ export default function MyAssets() {
 
                                 <li><a href="#">
                                     <span className="glyphicon glyphicon-user"></span>
-                                    
+
                                 </a></li>
 
                             </ul>
@@ -366,7 +366,7 @@ export default function MyAssets() {
                     <div style={linkStyle.div}>
                         <section className="bg">
                             <input onChange={onChange} type="file" accept="/image"></input>
-                            <img src={fileUrl} class="bg-img"></img>
+                            <img src={fileUrl} className="bg-img"></img>
 
                             <div className="bgc"></div>
                         </section>
@@ -423,7 +423,7 @@ export default function MyAssets() {
                         <section className="work">、
                             <header>
                                 <ul>
-                                    <li className="border" onClick={(e) => show(e)}><strong>收集</strong> 1</li>
+                                    <li className="border" onClick={(e) => show(e)}><strong>全部</strong> 1</li>
                                     <li><strong>艺术品</strong> 0</li>
                                     <li><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
@@ -472,7 +472,7 @@ export default function MyAssets() {
                                         {
                                             nfts.map((nft, i) => (
                                                 <div key={i} className="market_banner_photo_list"
-                                                onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
                                                     <div className="photo_list_img_container ">
                                                         <img src={nft.image} className="photo_list_img" />
                                                     </div>
@@ -485,8 +485,8 @@ export default function MyAssets() {
                                                     </div>
                                                     <div className="photo_list_photo_div1">
                                                         <p className="photo_list_photo_p1">
-                                                            <img class="price-img" src="/price.svg" />
-                                                            <span class="price-text"> {nft.price} ETH</span>
+                                                            <img className="price-img" src="/price.svg" />
+                                                            <span className="price-text"> {nft.price} ETH</span>
                                                         </p>
                                                         <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>推荐</button>
                                                     </div>
