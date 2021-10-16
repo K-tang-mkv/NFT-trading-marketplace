@@ -82,7 +82,7 @@ export default function MyAssets() {
             setLoadingState('loaded')
         } else {
             show()
-            judgeWhetherRecommended(nfts)
+            
         }
 
 
@@ -199,7 +199,8 @@ export default function MyAssets() {
             }
             return item;
         }))
-
+        
+        judgeWhetherRecommended(marketContract, proInfo)
         setSigner(signer)
         setAddress(accountAddress)
         setMarketContract(marketContract)
@@ -223,7 +224,8 @@ export default function MyAssets() {
         
     }
 
-    async function judgeWhetherRecommended(nfts) {
+    async function judgeWhetherRecommended(marketContract, nfts) {
+        
         const arr = new Array(nfts.length)
         for (let i = 0; i < nfts.length; i++){
             const listed = false
@@ -250,7 +252,7 @@ export default function MyAssets() {
             }
         }
         setRecommend(arr)
-        
+        console.log(arr)
     }
 
     async function onChange(e) {
