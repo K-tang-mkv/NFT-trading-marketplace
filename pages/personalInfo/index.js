@@ -80,6 +80,22 @@ export default function MyAssets() {
 
 
     }, [])
+
+    async function chu_mo(num) {
+
+        var btn1 = document.querySelectorAll(".photo_list_photo_button");
+        btn1[num].style.display = "block";
+        return false;
+
+    }
+
+    async function li_kai(num) {
+        var btn1 = document.querySelectorAll(".photo_list_photo_button");
+        btn1[num].style.display = "none";
+        return false;
+
+    }
+
     function copy(e) {
         $(".imformation .adress").mouseover(function () {
             $(this).css("color", "black").children("div").stop().fadeIn("fast").addClass("current");
@@ -455,7 +471,8 @@ export default function MyAssets() {
 
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list">
+                                                <div key={i} className="market_banner_photo_list"
+                                                onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
                                                     <div className="photo_list_img_container ">
                                                         <img src={nft.image} className="photo_list_img" />
                                                     </div>
