@@ -14,7 +14,7 @@
 .shortcut {
 
     display: flex;
-    z-index: 1;
+    z-index: 999;
     position: fixed;
     background: #fff;
     width: 10rem;
@@ -159,11 +159,11 @@
     box-shadow: 0 0 .1rem rgba(0, 0, 0, .3)
 }
 
-.shortcut_nav li:nth-of-type(4) a,
+/* .shortcut_nav li:nth-of-type(4) a,
 .shortcut_nav li:nth-of-type(5) a {
     font-size: .266667rem;
 
-}
+} */
 
 .shortcut_nav li:nth-of-type(4)>div a,
 .shortcut_nav li:nth-of-type(5)>div a {

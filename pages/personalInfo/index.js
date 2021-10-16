@@ -4,9 +4,9 @@ import axios from 'axios'
 import Web3Modal from "web3modal"
 import Head from 'next/head'
 import Link from "next/link"
-import Script from 'next/script'
+import { create as ipfsHttpClient } from 'ipfs-http-client'
 
-import Image from 'next/image'
+
 import $ from 'jquery'
 
 import {
@@ -15,6 +15,7 @@ import {
 
 import Market from '../../abi/nftmarket.json'
 
+const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
 const linkStyle = {
     div: {
@@ -58,6 +59,7 @@ const linkStyle = {
 }
 
 export default function MyAssets() {
+    const [fileUrl, setFileUrl] = useState(null)
     const [nfts, setNfts] = useState([])
     const [userInfo, setUsers] = useState([])
     const [userAddress, setAddress] = useState()
@@ -78,6 +80,22 @@ export default function MyAssets() {
 
 
     }, [])
+
+    async function chu_mo(num) {
+
+        var btn1 = document.querySelectorAll(".photo_list_photo_button");
+        btn1[num].style.display = "block";
+        return false;
+
+    }
+
+    async function li_kai(num) {
+        var btn1 = document.querySelectorAll(".photo_list_photo_button");
+        btn1[num].style.display = "none";
+        return false;
+
+    }
+
     function copy(e) {
         $(".imformation .adress").mouseover(function () {
             $(this).css("color", "black").children("div").stop().fadeIn("fast").addClass("current");
@@ -88,6 +106,7 @@ export default function MyAssets() {
         })
         $(".imformation .adress").click(function () {
             $(this).children("div")[0].innerHTML = '<div></div>已复制';
+
         })
 
         $(".imformation .share").mouseover(function () {
@@ -108,28 +127,6 @@ export default function MyAssets() {
         })
         loadNFTs()
     }
-    // async function li1(e, name) {
-    //     var photo1 = document.querySelectorAll(".market_banner_photo_list");
-    //     var p = document.querySelectorAll(".photo_list_p")
-    //     var lis = document.querySelectorAll(".li1");
-    //     for (var z = 0; z < lis.length; z++) {
-    //         lis[z].className = "li1";
-    //     }
-    //     e.target.className = "change li1";
-
-    //     if (name != "all") {
-    //         for (var i = 0; i < p.length; i++) {
-    //             photo1[i].style.display = "flex";
-    //             if (name != p[i].innerText) {
-    //                 photo1[i].style.display = "none";
-    //             }
-    //         }
-    //     } else {
-    //         for (var i = 0; i < photo1.length; i++) {
-    //             photo1[i].style.display = "flex";
-    //         }
-    //     }
-    // }
 
     async function loadNFTs() {
 
@@ -200,15 +197,36 @@ export default function MyAssets() {
         setLoadingState('loaded')
     }
 
+    async function onChange(e) {
+        console.log("gogo")
+        const file = e.target.files[0]
+        //setImage(file)
+        try {
+            const added = await client.add(
+                file,
+                {
+                    progress: (prog) => console.log(`received: ${prog}`)
+                }
+            )
+
+            const url = `https://ipfs.infura.io/ipfs/${added.path}`
+            setFileUrl(url)
+        } catch (error) {
+            console.log('Error uploading file: ', error)
+        }
+
+    }
 
     if (loadingState === 'loaded' && !nfts.length) {
         return (
             <div className="my-5 text-center ">
                 {/* <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" /> */}
+
                 <link rel="stylesheet" href="../../static/css/base.css" />
                 <link rel="stylesheet" href="../../static/css/commoon.css" />
                 <link rel="stylesheet" href="../../static/css/index.css" />
                 <link rel="stylesheet" href="../../static/css/information.css" />
+
 
                 <header className="shortcut ">
                     <div className="logo">
@@ -286,7 +304,7 @@ export default function MyAssets() {
 
                     <link rel="stylesheet" href="/css/commoon.css" />
                     <link rel="stylesheet" href="/css/information.css" />
-                    <link rel="stylesheet" href="/css/index.css" />
+                    {/* <link rel="stylesheet" href="/css/index.css" /> */}
                 </Head>
 
 
@@ -340,14 +358,19 @@ export default function MyAssets() {
 
                                 </li>
 
-                                <li><a href="#">个人</a></li>
+                                <li><a href="#">
+                                    <span className="glyphicon glyphicon-user"></span>
+
+                                </a></li>
 
                             </ul>
                         </nav>
                     </header>
                     <div style={linkStyle.div}>
                         <section className="bg">
-                            <input type="file"></input>
+                            <input onChange={onChange} type="file" accept="/image"></input>
+                            <img src={fileUrl} className="bg-img"></img>
+
                             <div className="bgc"></div>
                         </section>
 
@@ -355,9 +378,14 @@ export default function MyAssets() {
                             <div className="img">
                                 <input src={userInfo.headImg} type="file"></input>
 
+                                <input onChange={onChange} type="file" >
+                                </input>
+                                <img src={fileUrl}></img>
+                                {console.log(fileUrl)}
+
                             </div>
                             <div className="button">
-                                <div className="btn-group share">
+                                <div className="btn-group share" onMouseOver={(e) => copy(e)}>
                                     <div className="shares">
                                         <div></div>分享
                                     </div>
@@ -387,7 +415,7 @@ export default function MyAssets() {
 
                             </div>
 
-                            <h2 style={linkStyle.h2}>{userInfo.userName}</h2>
+                            <h2 style={linkStyle.h2}>{userInfo.userName ? userInfo.userName : "未命名"}</h2>
                             {console.log(userInfo)}
                             <a className="adress" href="javascript:;" onMouseOver={(e) => copy(e)}>
                                 <div className="copy">
@@ -401,9 +429,9 @@ export default function MyAssets() {
                         <section className="work">、
                             <header>
                                 <ul>
-                                    <li className="border" onClick={(e) => show(e)}><strong>收集</strong> 1</li>
-                                    <li><strong>创作</strong> 0</li>
-                                    <li><strong>喜欢</strong> 0</li>
+                                    <li className="border" onClick={(e) => show(e)}><strong>全部</strong> 1</li>
+                                    <li><strong>艺术品</strong> 0</li>
+                                    <li><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
                                     <li><strong>活动</strong></li>
                                     <li><strong>提供</strong></li>
@@ -449,8 +477,12 @@ export default function MyAssets() {
 
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list">
-                                                    <img src={nft.image} className="photo_list_img" />
+                                                <div key={i} className="market_banner_photo_list"
+                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    <div className="photo_list_img_container ">
+                                                        <img src={nft.image} className="photo_list_img" />
+                                                    </div>
+
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -458,7 +490,10 @@ export default function MyAssets() {
                                                         </div>
                                                     </div>
                                                     <div className="photo_list_photo_div1">
-                                                        <p className="photo_list_photo_p1">{nft.price} ETH</p>
+                                                        <p className="photo_list_photo_p1">
+                                                            <img className="price-img" src="/price.svg" />
+                                                            <span className="price-text"> {nft.price} ETH</span>
+                                                        </p>
                                                         <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>推荐</button>
                                                     </div>
                                                 </div>
@@ -493,7 +528,11 @@ export default function MyAssets() {
                                         {
                                             nfts.map((nft, i) => (
                                                 <div key={i} className="market_banner_photo_list">
+
                                                     <img src={nft.image} className="photo_list_img" />
+
+                                                    div
+
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">

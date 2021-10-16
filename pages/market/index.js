@@ -7,7 +7,7 @@ import { useState, useEffect } from "react"
 import { ethers } from "ethers"
 
 
-import Script from "next/script"
+
 import {
     nftMarketAddress, tokenXYBaddress
 } from '../../config'
@@ -130,16 +130,18 @@ export default function NftMarket() {
             const provider = new ethers.providers.Web3Provider(connection)
 
             const signer = provider.getSigner()
+            const accountAddress = signer.getAddress()
             const contract = new ethers.Contract(nftMarketAddress, Market, signer)
             const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
 
-            const price = ethers.utils.parseUnits(nft.price.toString(), 'ether')
-
+            const price = ethers.utils.parseUnits(nft.price.toString(), "ether")
+            
             const approvement = await xybContract.approve(nftMarketAddress, price)
             await approvement.wait()
-
+            
             const transactions = await contract.buyNft(nft.contractAddress, nft.tokenId)
             await transactions.wait()
+            console.log(transactions)
         };
 
     }
@@ -214,13 +216,13 @@ export default function NftMarket() {
                     </nav>
                 </header>
                 <section className="market_banner ">
-                    {/* <div className="market_banner_search">
+                    <div className="market_banner_search">
                         <div className="input_div">
                             <input type="text" className="market_control" placeholder="搜索NFT商品">
                             </input>
                         </div>
 
-                    </div> */}
+                    </div>
                     <div className="market_banner_section">
                         <div className="market_banner_nav">
                             <ul className="market_banner_nav_ul">

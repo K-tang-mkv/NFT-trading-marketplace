@@ -44,7 +44,14 @@ ul {
 
 
 }
-
+.bg .bg-img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    z-index: 1;
+}
 .bg::before {
     display: none;
     font-family: 'icomoon';
@@ -67,6 +74,10 @@ ul {
     width: 100%;
     height: 1.875rem;
     cursor: pointer;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left:0;
 }
 
 .bgc {
@@ -131,14 +142,35 @@ ul {
 .imformation input {
     opacity: 0;
     cursor: pointer;
-
+    position: absolute;
+    top: -3px;
+    left: -3px;
+    z-index: 2;
+   
+    
 
 
 }
+.imformation .img img {
+    position: absolute;
+    top:-3px;
+    left:-3px;
+    width: 1.05rem;
+    height: 1.05rem;
+    z-index: 1;
+    border-radius: .525rem;
+}
+
 
 .imformation a {
     position: relative;
     margin-bottom: .041667rem
+}
+.imformation .adress {
+    width:200px ;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .imformation p {
@@ -179,6 +211,7 @@ ul {
     border-top: .066667rem solid black;
     bottom: -0.125rem;
     left: .083333rem;
+   
 }
 
 .imformation .button {
@@ -442,4 +475,192 @@ ul {
     top: 100px;
     left: 50%;
     transform: translateX(-50%);
+}
+.market_banner {
+    width: 100%;
+}
+
+.market_banner_search {
+    display: flex;
+    width: 100%;
+    height: 160px;
+    justify-content: center;
+    padding-top: 72px;
+    align-items: center;
+}
+
+.market_banner_search .input_div {
+    flex: 0.6;
+    font-size: 20px;
+    height: 50px;
+    display: flex;
+    position: relative;
+}
+
+.market_banner_search .input_div::before {
+    position: absolute;
+    font-family: 'icomoon';
+    content: '';
+    left: 20px;
+    line-height: 50px;
+}
+
+.market_banner_search input {
+    border-radius: 25px;
+    flex: 1;
+    padding-left: 60px;
+    /* padding-left: 80px; */
+    border: 1px solid rgba(0, 0, 0, .3);
+
+}
+
+.market_banner .market_banner_section {
+    width: 100%;
+    display: flex;
+}
+
+.market_banner_section .market_banner_nav {
+    flex: 0.2;
+
+}
+
+.market_banner_section .market_banner_nav ul {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.market_banner_section .market_banner_nav .market_banner_nav_ul li {
+    display: block;
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
+    line-height: 100px;
+    text-align: center;
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+}
+
+.market_banner_section .market_banner_photo {
+    flex: 0.8;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+}
+
+.market_banner_photo .market_banner_photo_list {
+    transition: all .3s;
+    flex: 45%;
+    margin-left: 5%;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    max-width: 430px;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.market_banner_photo .market_banner_photo_list:hover {
+    box-shadow: 0 0 12px 1px;
+    transform: translateY(-10px);
+}
+.photo_list_img_container {
+    height: 318px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo_list_img {
+    
+    
+    max-width: 430px;
+    max-height: 318px;
+}
+
+.photo_list_photo_div {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.photo_list_photo_div .photo_list_p {
+    flex: 1;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: rgb(112, 122, 131);
+    font-size: 16px;
+
+}
+
+.photo_list_photo_div .photo_list_photo_div_div {
+    flex: 3;
+    padding: 0 0 10px 10px;
+    color: #222;
+}
+
+.photo_list_photo_div_div .photo_list_pone {
+    font-size: 16px;
+}
+
+.photo_list_photo_div1 {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    position: relative;
+}
+
+.photo_list_photo_div1 .photo_list_photo_p1 {
+    
+    flex: 1;
+    text-align: end;
+    margin: 30px 5px 0 0;
+    font-size: 15px;
+}
+
+.photo_list_photo_div1 .photo_list_photo_button {
+    position: absolute;
+    top: -100px;
+    left: -50%;
+    margin-left: 50px;
+    display: none;
+    width: 80px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(32, 129, 226);
+    border: 1px solid rgb(32, 129, 226);
+    height: 30px;
+    border-radius: 10px;
+    cursor: hand;
+    box-shadow: 0 0 4px .5px;
+}
+
+.change {
+    background-color: #ccc;
+    font-weight: 700;
+    color: #fff;
+
+}
+
+.li1 {
+    border-radius: 5px;
+
+}
+
+.up {
+    margin-top: 0;
+}
+.price-img {
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 15px!important;
+    height: 15px;
+}
+.price-text {
+    vertical-align: middle;
 }
