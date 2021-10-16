@@ -75,7 +75,7 @@ export default function MyAssets() {
         } else {
             show()
         }
-        
+
 
     }, [])
     function copy(e) {
@@ -108,6 +108,29 @@ export default function MyAssets() {
         })
         loadNFTs()
     }
+    // async function li1(e, name) {
+    //     var photo1 = document.querySelectorAll(".market_banner_photo_list");
+    //     var p = document.querySelectorAll(".photo_list_p")
+    //     var lis = document.querySelectorAll(".li1");
+    //     for (var z = 0; z < lis.length; z++) {
+    //         lis[z].className = "li1";
+    //     }
+    //     e.target.className = "change li1";
+
+    //     if (name != "all") {
+    //         for (var i = 0; i < p.length; i++) {
+    //             photo1[i].style.display = "flex";
+    //             if (name != p[i].innerText) {
+    //                 photo1[i].style.display = "none";
+    //             }
+    //         }
+    //     } else {
+    //         for (var i = 0; i < photo1.length; i++) {
+    //             photo1[i].style.display = "flex";
+    //         }
+    //     }
+    // }
+
     async function loadNFTs() {
 
         const web3Modal = new Web3Modal({
@@ -123,7 +146,7 @@ export default function MyAssets() {
 
         const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
         const user = await marketContract.getUser(accountAddress)
-        
+
         var ushering = {
             userName: user.username,
             headImg: user.headImg,
@@ -132,7 +155,7 @@ export default function MyAssets() {
         setUsers(ushering)
         const pro = await marketContract.getRecommend(1)
         const nftContract = await marketContract.getMyContract(accountAddress)
-        
+
         // get the goods info of each nftContract 
         var arr = new Array();
         for (let i = 0; i < nftContract.length; i++) {
@@ -141,14 +164,14 @@ export default function MyAssets() {
                 arr.push(info[i]);
             }
         }
-        
+
         const buyNfts = await marketContract.getMyBuyOrder(accountAddress)
         console.log(buyNfts)
-        for (let i=0;i<buyNfts.length;i++) {
+        for (let i = 0; i < buyNfts.length; i++) {
             let info = await marketContract.getGoodsByContractAddress(buyNfts[i].contractAddress)
             const tokenId = buyNfts[i].tokenId.toNumber()
             let owned = false
-            for (let i=0; i<arr.length;i++) {
+            for (let i = 0; i < arr.length; i++) {
                 if (arr[i].tokenId.toNumber() == tokenId)
                     owned = true
             }
@@ -171,7 +194,7 @@ export default function MyAssets() {
             }
             return item;
         }))
-        
+
 
         setNfts(proInfo)
         setLoadingState('loaded')
@@ -186,7 +209,7 @@ export default function MyAssets() {
                 <link rel="stylesheet" href="../../static/css/commoon.css" />
                 <link rel="stylesheet" href="../../static/css/index.css" />
                 <link rel="stylesheet" href="../../static/css/information.css" />
-                
+
                 <header className="shortcut ">
                     <div className="logo">
                         <h1>
@@ -245,30 +268,30 @@ export default function MyAssets() {
     else {
         return (
             <div>
-            
-                
+
+
                 <Head>
                     <meta charset="UTF-8" />
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>NFC交易市场</title>
-                    <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
-                    
-                    
-                    <script async type="text/javascript" src="/static/lib/bootstrap.min.js"/>
-                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"/>
-                    <script async type="text/javascript" src="/static/lib/jq.js"/>
-                    
-                    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css"/>
-                    
+                    <script async type="text/javascript" src="/static/lib/jquery.min.js" />
+
+
+                    <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
+                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" />
+                    <script async type="text/javascript" src="/static/lib/jq.js" />
+
+                    <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
+
                     <link rel="stylesheet" href="/css/commoon.css" />
                     <link rel="stylesheet" href="/css/information.css" />
                     <link rel="stylesheet" href="/css/index.css" />
                 </Head>
 
-               
 
-                
+
+
 
                 <main>
                     <header className="shortcut ">
@@ -331,7 +354,7 @@ export default function MyAssets() {
                         <section className="imformation">
                             <div className="img">
                                 <input src={userInfo.headImg} type="file"></input>
-                                
+
                             </div>
                             <div className="button">
                                 <div className="btn-group share">
@@ -436,7 +459,7 @@ export default function MyAssets() {
                                                     </div>
                                                     <div className="photo_list_photo_div1">
                                                         <p className="photo_list_photo_p1">{nft.price} ETH</p>
-                                                        <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>Buy</button>
+                                                        <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>推荐</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -447,7 +470,7 @@ export default function MyAssets() {
                                     <div className="market_banner_photo">
                                         {
                                             nfts.map((nft, i) => (
-                                                
+
                                                 <div key={i} className="market_banner_photo_list">
                                                     <img src={nft.image} className="photo_list_img" />
                                                     <div className="photo_list_photo_div ">

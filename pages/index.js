@@ -11,14 +11,14 @@ function HomePage() {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>NFC交易市场</title>
-                <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive"/>
-                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive"/>
-                <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive"/>
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive" />
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive" />
+                <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive" />
                 {/* <link rel="stylesheet" href="../static/css/base.css" /> */}
                 <link rel="stylesheet" href="/css/commoon.css" />
                 <link rel="stylesheet" href="/css/index.css" />
-                
-                
+
+
             </Head>
             <main>
                 <header className="shortcut ">
@@ -115,7 +115,29 @@ function HomePage() {
                     </div>
 
                 </section>
-
+                <section class="tail">
+                    <div class="tail_nav">
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                        <a href="#" class="tail_nav_a">评价一</a>
+                    </div>
+                </section>
+                <section class="ending">
+                    <div class="ending_left">
+                        <div class="ending_left_div1">Stay in the loop</div>
+                        <div class="ending_left_div2">Join our mailing list to stay in the loop with our newest feature releases, NFT drops, and tips and tricks for navigating OpenSea.</div>
+                        <div class="ending_left_div3">
+                            <input class="ending_left_div3_input"></input>
+                            <button class="ending_left_div3_btn"></button>
+                        </div>
+                    </div>
+                    <div class="ending_right"></div>
+                </section>
             </main>
 
 

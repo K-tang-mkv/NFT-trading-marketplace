@@ -356,3 +356,39 @@
 .up {
     margin-top: 0;
 }
+
+.tail {
+    display: flex;
+    z-index: 1;
+    width: 10rem;
+    max-width: 1200px;
+    min-width: 320px;
+    margin: 0 auto;
+    margin-top: 30px;
+    height: .8rem;
+    line-height: .8rem;
+    box-shadow: 0.008333rem 0.008333rem 0.1rem 0.016667rem rgb(0 0 0 / 30%);
+    text-shadow: 0.008333rem 0.008333rem 0.008333rem rgb(0 0 0 / 20%);
+    background-color: rgb(32, 129, 226);
+    align-items: center;
+    justify-content: center;
+    -webkit-box-align: center;
+}
+
+.tail_nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(32, 129, 226);
+    flex: 1;
+    text-align: center;
+}
+
+.tail_nav_a {
+    flex: 1;
+    height: 25px;
+    line-height: 25px;
+    margin: 10px;
+    color: rgba(251, 253, 255, 0.75);
+    cursor: pointer;
+}

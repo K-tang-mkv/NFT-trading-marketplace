@@ -38,10 +38,10 @@ export default function NftMarket() {
 
     async function li1(e, name) {
         var photo1 = document.querySelectorAll(".market_banner_photo_list");
-        var p = document.querySelectorAll(".photo_list_p")
+        var p = document.querySelectorAll(".photo_list_pone")
         var lis = document.querySelectorAll(".li1");
         for (var z = 0; z < lis.length; z++) {
-            lis[z].className= "li1";
+            lis[z].className = "li1";
         }
         e.target.className = "change li1";
 
@@ -58,14 +58,23 @@ export default function NftMarket() {
             }
         }
     }
+    // $(function () {
+    //     var boxTop = $(".market_banner_nav").offset().top;
+    //     $(window).scroll(function () {
+    //         if ($(document).scrollTop() >= boxTop) {
+    //             $(".market_banner_nav").offset().top = "100px";
+    //         }
+    //     })
+    // })()
+
 
     async function loadNFTs() {
 
         const provider = new ethers.providers.JsonRpcProvider("https://http-testnet.hecochain.com")
-        
-        
+
+
         const marketContract = new ethers.Contract(nftMarketAddress, Market, provider)
-        
+
         const pro = await marketContract.getRecommend(1)
         console.log(pro)
         let arr = new Array()
@@ -95,6 +104,7 @@ export default function NftMarket() {
                 image: imageUrl,
                 name: i.name,
                 description: i.info,
+                type: i.nftType.toNumber(),
             }
             return item;
         }))
@@ -140,22 +150,22 @@ export default function NftMarket() {
 
     return (
         <div>
-            
+
             <Head>
                 <meta charset="UTF-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>NFC交易市场</title>
-                <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
-                <script async type="text/javascript" src="/static/lib/bootstrap.min.js"/>
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" />
+                <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
                 <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
                 <link rel="stylesheet" href="/css/base.css" />
                 <link rel="stylesheet" href="/css/commoon.css" />
                 <link rel="stylesheet" href="/css/information.css" />
-                <link rel="stylesheet" href="/css/index.css" />
+                <link rel="stylesheet" href="/css/market.css" />
                 <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"></script>
-                
-                
+
+
             </Head>
             <main>
                 <header className="shortcut ">
@@ -214,9 +224,9 @@ export default function NftMarket() {
                     <div className="market_banner_section">
                         <div className="market_banner_nav">
                             <ul className="market_banner_nav_ul">
-                                <li className="li1 change" onClick={(e) => li1(e, "all")}>全部图片</li>
-                                <li className="li1 " onClick={(e) => li1(e, "Faker")}>艺术品</li>
-                                <li className="li1 " onClick={(e) => li1(e, "game")}>游戏品</li>
+                                <li className="li1 change" onClick={(e) => li1(e, "all")}>全部商品</li>
+                                <li className="li1 " onClick={(e) => li1(e, "艺术品")}>艺术品</li>
+                                <li className="li1 " onClick={(e) => li1(e, "游戏")}>游戏</li>
                             </ul>
                         </div>
                         <div className="market_banner_photo" >
@@ -228,13 +238,13 @@ export default function NftMarket() {
                                         <div className="photo_list_photo_div ">
                                             <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                             <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
-                                                <p className="photo_list_pone">{nft.description}</p>
+                                                <p className="photo_list_pone">{nft.type == 1 ? "艺术品" : "游戏"}</p>
                                             </div>
                                         </div>
                                         <div className="photo_list_photo_div1">
                                             <p className="photo_list_photo_p1">{nft.price} ETH</p>
                                             <button className="photo_list_photo_button"
-                                            onClick={() => BuyNft(nft)}>Buy now</button>
+                                                onClick={() => BuyNft(nft)}>Buy now</button>
                                         </div>
                                     </div>
                                 ))
