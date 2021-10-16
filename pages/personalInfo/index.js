@@ -10,10 +10,11 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import $ from 'jquery'
 
 import {
-    nftMarketAddress
+    nftMarketAddress, tokenXYBaddress
 } from '../../config'
 
 import Market from '../../abi/nftmarket.json'
+import xybToken from '../../abi/xybToken.json'
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
@@ -62,6 +63,11 @@ export default function MyAssets() {
     const [fileUrl, setFileUrl] = useState(null)
     const [nfts, setNfts] = useState([])
     const [userInfo, setUsers] = useState([])
+    const [signer, setSigner] = useState()
+
+    const [marketContract, setMarketContract] = useState()
+    const [recommeded, setRecommend] = useState([])
+
     const [userAddress, setAddress] = useState()
     const [loadingState, setLoadingState] = useState('not-loaded')
     useEffect(() => {
@@ -76,6 +82,7 @@ export default function MyAssets() {
             setLoadingState('loaded')
         } else {
             show()
+            judgeWhetherRecommended(nfts)
         }
 
 
@@ -126,22 +133,22 @@ export default function MyAssets() {
             $(".work .banner .market_banner_photo").eq(index).show().siblings(".market_banner_photo").hide();
         })
         loadNFTs()
+        
     }
 
     async function loadNFTs() {
 
         const web3Modal = new Web3Modal({
-            network: "mainnet",
             cacheProvider: true,
         })
         const connection = await web3Modal.connect()
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
         const accountAddress = await signer.getAddress()
-
-        setAddress(accountAddress)
+        
 
         const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
+        
         const user = await marketContract.getUser(accountAddress)
 
         var ushering = {
@@ -188,13 +195,62 @@ export default function MyAssets() {
                 image: imageUrl,
                 name: i.name,
                 description: i.info,
+                type: i.nftType.toNumber()
             }
             return item;
         }))
 
-
+        setSigner(signer)
+        setAddress(accountAddress)
+        setMarketContract(marketContract)
         setNfts(proInfo)
         setLoadingState('loaded')
+    }
+
+    async function setNftRecommend(nft) {
+        //const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
+        const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
+        
+        const price = await marketContract.adverPrice()
+        const adverPrice = ethers.utils.parseUnits(price.toString(), "ether")
+        
+        console.log(adverPrice)
+        const approvement = await xybContract.approve(nftMarketAddress, adverPrice)
+        await approvement.wait()
+
+        const transaction = await marketContract.setRecommend(nft.contractAddress, nft.tokenId, nft.type)
+        await transaction.wait()
+        
+    }
+
+    async function judgeWhetherRecommended(nfts) {
+        const arr = new Array(nfts.length)
+        for (let i = 0; i < nfts.length; i++){
+            const listed = false
+            if (nfts[i].type == 1) {
+                const recommendList = await marketContract.getRecommend(1)
+                for (let j = 0; j < recommendList.length; j++) {
+                    if (recommendList[j].contractAddress == nfts[i].contractAddress && nfts[i].tokenId == recommendList[j].tokenId) {
+                        arr[i] = true
+                        listed = true
+                        break
+                    } 
+                }
+                if (!listed)
+                    arr[i] = false
+            } else {
+                const recommendList = await marketContract.getRecommend(2)
+                for (let j = 0; j < recommendList.length; j++) {
+                    if (recommendList[j].contractAddress == nfts[i].contractAddress && nfts[i].tokenId == recommendList[j].tokenId) {
+                        arr[i] = true
+                    }
+                }
+                if (!listed)
+                    arr[i] = false
+            }
+        }
+        setRecommend(arr)
+        
     }
 
     async function onChange(e) {
@@ -488,7 +544,8 @@ export default function MyAssets() {
                                                             <img className="price-img" src="/price.svg" />
                                                             <span className="price-text"> {nft.price} ETH</span>
                                                         </p>
-                                                        <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>推荐</button>
+                                                        
+                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>{recommeded[i] ? "推荐中" : "推荐" }</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -510,7 +567,7 @@ export default function MyAssets() {
                                                     </div>
                                                     <div className="photo_list_photo_div1">
                                                         <p className="photo_list_photo_p1">{nft.price} ETH</p>
-                                                        <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>Buy</button>
+                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>Buy</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -535,7 +592,7 @@ export default function MyAssets() {
                                                     </div>
                                                     <div className="photo_list_photo_div1">
                                                         <p className="photo_list_photo_p1">{nft.price} ETH</p>
-                                                        <button className="photo_list_photo_button" onClick={() => BuyNft(nft)}>Buy</button>
+                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>Buy</button>
                                                     </div>
                                                 </div>
                                             ))

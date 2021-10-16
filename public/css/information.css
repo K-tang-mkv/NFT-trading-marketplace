@@ -395,10 +395,10 @@ ul {
     box-shadow: 1px 1px 12px rgba(0, 0, 0, .3);
 }
 
-.work .banner .market_banner_photo_list img {
+/* .work .banner .market_banner_photo_list img {
     width: 100%;
 
-}
+} */
 
 .border {
     border-bottom: 5px solid rgb(32, 129, 226);
@@ -575,6 +575,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
 .photo_list_img {
