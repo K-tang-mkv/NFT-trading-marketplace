@@ -41,7 +41,7 @@ export default function NftMarket() {
         var p = document.querySelectorAll(".photo_list_p")
         var lis = document.querySelectorAll(".li1");
         for (var z = 0; z < lis.length; z++) {
-            lis[z].className= "li1";
+            lis[z].className = "li1";
         }
         e.target.className = "change li1";
 
@@ -62,10 +62,10 @@ export default function NftMarket() {
     async function loadNFTs() {
 
         const provider = new ethers.providers.JsonRpcProvider("https://http-testnet.hecochain.com")
-        
-        
+
+
         const marketContract = new ethers.Contract(nftMarketAddress, Market, provider)
-        
+
         const pro = await marketContract.getRecommend(1)
         console.log(pro)
         let arr = new Array()
@@ -104,7 +104,7 @@ export default function NftMarket() {
         // setLoadingState('loaded') 
     }
 
-    async function BuyNft(nft) {
+    async function BuyNft(nft, i) {
         let isMetaMaskInstalled = () => {
             const { ethereum } = window;
             return Boolean(ethereum && ethereum.isMetaMask);
@@ -115,6 +115,11 @@ export default function NftMarket() {
             alert("no metaMask");
             console.log("No metamask");
         } else {
+            const waitCircle = document.querySelectorAll(".loadingSix")
+            waitCircle[i].style.display = "block"
+            const mask = document.querySelectorAll('.mask');
+            mask[i].style.display = "block";
+
             const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect()
             const provider = new ethers.providers.Web3Provider(connection)
@@ -125,12 +130,11 @@ export default function NftMarket() {
             const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
 
             const price = ethers.utils.parseUnits(nft.price.toString(), "ether")
-            
+
             const approvement = await xybContract.approve(nftMarketAddress, price)
             await approvement.wait()
-            
-            const transactions = await contract.buyNft(nft.contractAddress, nft.tokenId)
-            await transactions.wait()
+
+            const transactions = await contract.buyNft(nft.contractAddress, nft.tokenId).then(() => waitCircle[i].style.display = "none").then(() => mask[i].style.display = "none")
             console.log(transactions)
         };
 
@@ -142,22 +146,23 @@ export default function NftMarket() {
 
     return (
         <div>
-            
+
             <Head>
                 <meta charset="UTF-8" />
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>NFC交易市场</title>
-                <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
-                <script async type="text/javascript" src="/static/lib/bootstrap.min.js"/>
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" />
+                <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
                 <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
                 <link rel="stylesheet" href="/css/base.css" />
                 <link rel="stylesheet" href="/css/commoon.css" />
                 <link rel="stylesheet" href="/css/information.css" />
-                <link rel="stylesheet" href="/css/index.css" />
+                {/* <link rel="stylesheet" href="/css/index.css" /> */}
+                <link rel="stylesheet" href="/css/market.css" />
                 <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"></script>
-                
-                
+
+
             </Head>
             <main>
                 <header className="shortcut ">
@@ -226,7 +231,21 @@ export default function NftMarket() {
                                 nfts.map((nft, i) => (
                                     <div key={i} className="market_banner_photo_list"
                                         onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
-                                        <img src={nft.image} className="photo_list_img" />
+                                        <div className="mask"></div>
+                                        <div className="loadingSix">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                        <div className="photo_list_img_container ">
+                                            <img src={nft.image} className="photo_list_img" />
+                                        </div>
                                         <div className="photo_list_photo_div ">
                                             <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                             <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -234,9 +253,12 @@ export default function NftMarket() {
                                             </div>
                                         </div>
                                         <div className="photo_list_photo_div1">
-                                            <p className="photo_list_photo_p1">{nft.price} ETH</p>
+                                            <p className="photo_list_photo_p1">
+                                                <img className="price-img" src="/price.svg" />
+                                                <span className="price-text"> {nft.price} ETH</span>
+                                            </p>
                                             <button className="photo_list_photo_button"
-                                            onClick={() => BuyNft(nft)}>Buy now</button>
+                                                onClick={() => BuyNft(nft, i)}>Buy now</button>
                                         </div>
                                     </div>
                                 ))

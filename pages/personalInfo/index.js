@@ -63,7 +63,7 @@ export default function MyAssets() {
     const [fileUrl, setFileUrl] = useState(null)
     const [nfts, setNfts] = useState([])
     const [userInfo, setUsers] = useState([])
-    const [signer, setSigner] = useState()
+    const [signer, setSigner] = useState(null)
 
     const [marketContract, setMarketContract] = useState()
     const [recommeded, setRecommend] = useState([])
@@ -76,19 +76,21 @@ export default function MyAssets() {
             return Boolean(ethereum && ethereum.isMetaMask);
         };
 
+
         if (!isMetaMaskInstalled()) {
             alert("no metaMask");
             console.log("No metamask");
             setLoadingState('loaded')
         } else {
-            show()
-            
+            loadStart()
+
+            console.log(signer)
         }
 
 
     }, [])
 
-    async function chu_mo(num) {
+    function chu_mo(num) {
 
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
         btn1[num].style.display = "block";
@@ -96,7 +98,7 @@ export default function MyAssets() {
 
     }
 
-    async function li_kai(num) {
+    function li_kai(num) {
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
         btn1[num].style.display = "none";
         return false;
@@ -124,31 +126,43 @@ export default function MyAssets() {
         })
 
     }
-    async function show(e) {
+    function show(id) {
 
-        $(".work header ul li").click(function () {
-            $(this).addClass('border');
-            var index = $(this).index();
-            $(this).siblings().removeClass('border');
-            $(".work .banner .market_banner_photo").eq(index).show().siblings(".market_banner_photo").hide();
-        })
-        loadNFTs()
         
+        $(id).addClass('border');
+        var index = $(id).index();
+        $(id).siblings().removeClass('border');
+        $(".work .banner .market_banner_photo").eq(index).show().siblings(".market_banner_photo").hide();
+
+        console.log("show");
     }
 
-    async function loadNFTs() {
+    async function loadStart() {
+        //setLoadingState('loaded')
+        const connected = await connect()
 
+        await connected.wait
+
+        loadNFTs(connected)
+
+    }
+    async function connect() {
         const web3Modal = new Web3Modal({
             cacheProvider: true,
         })
         const connection = await web3Modal.connect()
         const provider = new ethers.providers.Web3Provider(connection)
         const signer = provider.getSigner()
+        setSigner(signer)
+        return signer
+    }
+    async function loadNFTs(signer) {
+
         const accountAddress = await signer.getAddress()
-        
+
 
         const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
-        
+
         const user = await marketContract.getUser(accountAddress)
 
         var ushering = {
@@ -195,13 +209,14 @@ export default function MyAssets() {
                 image: imageUrl,
                 name: i.name,
                 description: i.info,
-                type: i.nftType.toNumber()
+                type: i.nftType.toNumber(),
+                upMall: i.upMall
             }
             return item;
         }))
-        
+
         judgeWhetherRecommended(marketContract, proInfo)
-        setSigner(signer)
+
         setAddress(accountAddress)
         setMarketContract(marketContract)
         setNfts(proInfo)
@@ -211,23 +226,55 @@ export default function MyAssets() {
     async function setNftRecommend(nft) {
         //const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
         const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
-        
+
         const price = await marketContract.adverPrice()
         const adverPrice = ethers.utils.parseUnits(price.toString(), "ether")
-        
+
         console.log(adverPrice)
         const approvement = await xybContract.approve(nftMarketAddress, adverPrice)
         await approvement.wait()
 
         const transaction = await marketContract.setRecommend(nft.contractAddress, nft.tokenId, nft.type)
         await transaction.wait()
-        
     }
 
+    async function setNftLostRecommend(nft) {
+        const transaction = await marketContract.setLostRecommend(nft.contractAddress, nft.tokenId, nft.type)
+        await transaction.wait()
+    }
+
+    async function setIfRecommend(e, nft, i) {
+        const buttonRecommend = document.querySelectorAll('.photo_list_photo_button')
+        const waitCircle = document.querySelectorAll(".loadingSix")
+        waitCircle[i].style.display = "block"
+        const mask = document.querySelectorAll('.mask');
+        mask[i].style.display = "block";
+
+        if (buttonRecommend[i].innerHTML == "推荐") {
+            buttonRecommend[i].innerHTML = "推荐中"
+            const temp = setNftRecommend(nft)
+
+            temp.then(value => { alert("推荐成功"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "取消推荐"; mask[i].style.display = "none" },
+                reason => { alert("推荐失败"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "推荐"; mask[i].style.display = "none" })
+
+            console.log(temp)
+        } else {
+            console.log(buttonRecommend[i].innerHTML)
+            buttonRecommend[i].innerHTML = "取消中"
+            const temp = setNftLostRecommend(nft)
+
+            temp.then(value => { alert("取消成功"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "推荐"; mask[i].style.display = "none" },
+                reason => { alert("取消失败"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "取消推荐"; mask[i].style.display = "none" })
+
+
+        }
+
+
+    }
     async function judgeWhetherRecommended(marketContract, nfts) {
-        
+
         const arr = new Array(nfts.length)
-        for (let i = 0; i < nfts.length; i++){
+        for (let i = 0; i < nfts.length; i++) {
             const listed = false
             if (nfts[i].type == 1) {
                 const recommendList = await marketContract.getRecommend(1)
@@ -236,7 +283,7 @@ export default function MyAssets() {
                         arr[i] = true
                         listed = true
                         break
-                    } 
+                    }
                 }
                 if (!listed)
                     arr[i] = false
@@ -275,9 +322,31 @@ export default function MyAssets() {
 
     }
 
-    if (loadingState === 'loaded' && !nfts.length) {
+    function previewFile(e, imgId) {
+        var preview = document.querySelector(imgId);
+        var file = e.target.files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+    if (!signer) {
         return (
             <div className="my-5 text-center ">
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" />
+
+
+                <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
+                {console.log(nfts.length)}
                 {/* <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" /> */}
                 <link rel="stylesheet" href="/css/base.css" />
                 <link rel="stylesheet" href="/css/commoon.css" />
@@ -335,11 +404,12 @@ export default function MyAssets() {
                     </nav>
                 </header>
                 <img src="/metaMaskLogo.png" className="pic" />
-                <h1 className="drop">Please Install Metamask</h1>
+                <h1 className="drop">请连接钱包</h1>
             </div>)
     }
     else {
         return (
+
             <div>
 
 
@@ -348,8 +418,8 @@ export default function MyAssets() {
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>NFC交易市场</title>
-                    <script async type="text/javascript" src="/static/lib/jquery.min.js" />
 
+                    <script async type="text/javascript" src="/static/lib/jquery.min.js" />
 
                     <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
                     <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" />
@@ -361,10 +431,6 @@ export default function MyAssets() {
                     <link rel="stylesheet" href="/css/information.css" />
                     {/* <link rel="stylesheet" href="/css/index.css" /> */}
                 </Head>
-
-
-
-
 
                 <main>
                     <header className="shortcut ">
@@ -423,17 +489,17 @@ export default function MyAssets() {
                     </header>
                     <div style={linkStyle.div}>
                         <section className="bg">
-                            <input onChange={onChange} type="file" accept="/image"></input>
-                            <img src={fileUrl} className="bg-img"></img>
+                            <input onChange={e => previewFile(e, ".bg-img")} type="file" accept="/image"></input>
+                            <img src="" className="bg-img"></img>
 
                             <div className="bgc"></div>
                         </section>
 
                         <section className="imformation">
                             <div className="img">
-                                <input onChange={onChange} type="file" >
+                                <input onChange={e => previewFile(e, '.headImg')} type="file" >
                                 </input>
-                                <img src={fileUrl}></img>
+                                <img src="/" className="headImg"></img>
                                 {console.log(fileUrl)}
                             </div>
                             <div className="button">
@@ -481,9 +547,9 @@ export default function MyAssets() {
                         <section className="work">、
                             <header>
                                 <ul>
-                                    <li className="border" onClick={(e) => show(e)}><strong>全部</strong> 1</li>
-                                    <li><strong>艺术品</strong> 0</li>
-                                    <li><strong>游戏</strong> 0</li>
+                                    <li id = "id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
+                                    <li id = "id2" onClick={() => show("#id2")}><strong>艺术品</strong> 0</li>
+                                    <li id = "id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
                                     <li><strong>活动</strong></li>
                                     <li><strong>提供</strong></li>
@@ -531,6 +597,19 @@ export default function MyAssets() {
                                             nfts.map((nft, i) => (
                                                 <div key={i} className="market_banner_photo_list"
                                                     onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    <div className="mask"></div>
+                                                    
+                                                    <div className="loadingSix">
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                    </div>
+
                                                     <div className="photo_list_img_container ">
                                                         <img src={nft.image} className="photo_list_img" />
                                                     </div>
@@ -546,8 +625,8 @@ export default function MyAssets() {
                                                             <img className="price-img" src="/price.svg" />
                                                             <span className="price-text"> {nft.price} ETH</span>
                                                         </p>
-                                                        
-                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>{recommeded[i] ? "推荐中" : "推荐" }</button>
+
+                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft, i)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -559,8 +638,25 @@ export default function MyAssets() {
                                         {
                                             nfts.map((nft, i) => (
 
-                                                <div key={i} className="market_banner_photo_list">
-                                                    <img src={nft.image} className="photo_list_img" />
+                                                <div key={i} className="market_banner_photo_list"
+
+                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    <div className="mask"></div>
+                                                    123
+                                                    <div className="loadingSix">
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                    </div>
+                                                    <div className="photo_list_img_container ">
+                                                        <img src={nft.image} className="photo_list_img" />
+                                                    </div>
+
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                                         <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -568,23 +664,39 @@ export default function MyAssets() {
                                                         </div>
                                                     </div>
                                                     <div className="photo_list_photo_div1">
-                                                        <p className="photo_list_photo_p1">{nft.price} ETH</p>
-                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>Buy</button>
+                                                        <p className="photo_list_photo_p1">
+                                                            <img className="price-img" src="/price.svg" />
+                                                            <span className="price-text"> {nft.price} ETH</span>
+                                                        </p>
+
+                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
                                                     </div>
                                                 </div>
                                             ))
                                         }
 
 
+
                                     </div>
                                     <div className="market_banner_photo">
                                         {
                                             nfts.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list">
-
-                                                    <img src={nft.image} className="photo_list_img" />
-
-                                                    div
+                                                <div key={i} className="market_banner_photo_list"
+                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    <div className="mask"></div>
+                                                    <div className="loadingSix">
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                        <span></span>
+                                                    </div>
+                                                    <div className="photo_list_img_container ">
+                                                        <img src={nft.image} className="photo_list_img" />
+                                                    </div>
 
                                                     <div className="photo_list_photo_div ">
                                                         <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
@@ -593,8 +705,12 @@ export default function MyAssets() {
                                                         </div>
                                                     </div>
                                                     <div className="photo_list_photo_div1">
-                                                        <p className="photo_list_photo_p1">{nft.price} ETH</p>
-                                                        <button className="photo_list_photo_button" onClick={() => setNftRecommend(nft)}>Buy</button>
+                                                        <p className="photo_list_photo_p1">
+                                                            <img className="price-img" src="/price.svg" />
+                                                            <span className="price-text"> {nft.price} ETH</span>
+                                                        </p>
+
+                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
                                                     </div>
                                                 </div>
                                             ))
