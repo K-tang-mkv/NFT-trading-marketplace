@@ -125,6 +125,103 @@ ul {
     display: flex;
     flex-wrap: wrap;
     font-size: 15px;
+    cursor: pointer;
+    position: relative;
+}
+
+.market_banner_photo .market_banner_photo_list .mask {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, .3);
+
+}
+
+.loadingSix {
+    display: none;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+}
+
+.loadingSix span {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: skyblue;
+    position: absolute;
+    -webkit-animation: load 1.04s ease infinite;
+}
+
+@-webkit-keyframes load {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.2;
+    }
+}
+
+.loadingSix span:nth-child(1) {
+    left: 0;
+    top: 50%;
+    margin-top: -8px;
+    -webkit-animation-delay: 0.13s;
+}
+
+.loadingSix span:nth-child(2) {
+    left: 14px;
+    top: 14px;
+    -webkit-animation-delay: 0.26s;
+}
+
+.loadingSix span:nth-child(3) {
+    left: 50%;
+    top: 0;
+    margin-left: -8px;
+    -webkit-animation-delay: 0.39s;
+}
+
+.loadingSix span:nth-child(4) {
+    top: 14px;
+    right: 14px;
+    -webkit-animation-delay: 0.52s;
+}
+
+.loadingSix span:nth-child(5) {
+    right: 0;
+    top: 50%;
+    margin-top: -8px;
+    -webkit-animation-delay: 0.65s;
+}
+
+.loadingSix span:nth-child(6) {
+    right: 14px;
+    bottom: 14px;
+    -webkit-animation-delay: 0.78s;
+}
+
+.loadingSix span:nth-child(7) {
+    bottom: 0;
+    left: 50%;
+    margin-left: -8px;
+    -webkit-animation-delay: 0.91s;
+}
+
+.loadingSix span:nth-child(8) {
+    bottom: 14px;
+    left: 14px;
+    -webkit-animation-delay: 1.04s;
 }
 
 .market_banner_photo .market_banner_photo_list:hover {
@@ -132,10 +229,19 @@ ul {
     transform: translateY(-10px);
 }
 
+.photo_list_img_container {
+    height: 318px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
 
 .photo_list_img {
-    width: 100%;
+
+
     max-width: 430px;
+    max-height: 318px;
 }
 
 .photo_list_photo_div {
@@ -171,6 +277,7 @@ ul {
 }
 
 .photo_list_photo_div1 .photo_list_photo_p1 {
+
     flex: 1;
     text-align: end;
     margin: 30px 5px 0 0;
@@ -180,8 +287,8 @@ ul {
 .photo_list_photo_div1 .photo_list_photo_button {
     position: absolute;
     top: -100px;
-    left: -50%;
-    margin-left: 60px;
+    left: -40%;
+    margin-left: 40px;
     display: none;
     width: 80px;
     color: rgb(255, 255, 255);
@@ -207,4 +314,15 @@ ul {
 
 .up {
     margin-top: 0;
+}
+
+.price-img {
+    vertical-align: middle;
+    margin-right: 5px;
+    width: 15px !important;
+    height: 15px;
+}
+
+.price-text {
+    vertical-align: middle;
 }

@@ -2,7 +2,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 
 import { create as ipfsHttpClient } from 'ipfs-http-client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { ethers } from 'ethers'
 import Web3Modal from "web3modal"
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
@@ -31,7 +31,11 @@ function CreatePage() {
     const [image, setImage] = useState(null)
     const [formInput, updateFormInput] = useState({ name: '', price: '', description: '' })
 
+    useEffect(() => {
+        selectChain()
+    }, [])
     async function onChange(e) {
+        previewFile(e)
         console.log("gogo")
         const file = e.target.files[0]
         setImage(file)
@@ -51,6 +55,57 @@ function CreatePage() {
 
     }
 
+    function previewFile(e) {
+        var preview = document.querySelector('img');
+        var file = document.querySelector('input[type=file]').files[0];
+        var reader = new FileReader();
+
+        reader.onloadend = function () {
+            preview.src = reader.result;
+            preview.style.display = 'block';
+        }
+
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+        }
+    }
+
+    function selectChain() {
+        var item = document.querySelector('.BlockChain');
+        var flag = 0;
+        var items = item.querySelectorAll('div');
+
+
+        item.onclick = function () {
+            if (flag == 0) {
+
+                this.style.overflow = 'visible';
+                flag = 1;
+            }
+            else {
+
+                this.style.overflow = 'hidden';
+                flag = 0;
+            }
+
+        }
+        for (var i = 0; i < items.length; i++) {
+            items[i].setAttribute('index', i);
+            items[i].onclick = function () {
+                var index = this.getAttribute('index');
+                var divs = items[index].innerHTML;
+                for (var j = index; j > 0; j--) {
+                    items[j].innerHTML = items[j - 1].innerHTML;
+                }
+                items[0].innerHTML = divs;
+
+
+            }
+
+        }
+    }
     async function createProduct() {
         const { name, price, description } = formInput
         if (!name || !price || !description) {
@@ -103,15 +158,15 @@ function CreatePage() {
                 <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <title>创造页</title>
-                <script async type="text/javascript" src="/static/lib/jquery.min.js"/>
-                <script async type="text/javascript" src="/static/css/bootstrap/js/bootstrap.min.js"/>
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" />
+                <script async type="text/javascript" src="/static/css/bootstrap/js/bootstrap.min.js" />
                 <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
                 {/* <link rel="stylesheet" href="../../static/css/base.css" /> */}
                 <link rel="stylesheet" href="/css/commoon.css" />
                 <link rel="stylesheet" href="/css/create.css" />
- 
-                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"/>
-                
+
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" />
+
             </Head>
 
             <body>
@@ -146,10 +201,11 @@ function CreatePage() {
                             size: 40 MB</p>
                         <div className="item_uplode">
                             <div className="tips">
-                                <img src={image} alt="" />
+                                <img src="" alt="" className="imgs " />
                                 <p>请上传文件</p>
                             </div>
                             <input className="item-flie" type="file" id="exampleInputFile" required="required" name="opus" onChange={onChange} />
+
                         </div>
                     </section>
                     <form action="/uploading" method="POST" id="upload">
@@ -163,13 +219,12 @@ function CreatePage() {
                         </section>
                         <section className="link">
                             <header>
-                                <h4>price</h4>
+                                <h4>价格*</h4>
                                 <p>
-                                    OpenSea 将在此项目的详细信息页面上包含指向此 URL 的链接，以便用户可以点击，以了解更多信息，欢迎您链接到您自己的网页，了解更多详情。
                                 </p>
                             </header>
 
-                            <input className="input1" type="url" required="required" placeholder="https://yoursite.io/item/123"
+                            <input className="input1" type="url" required="required"
                                 style={linkStyle.input} name="url" onChange={e => updateFormInput({ ...formInput, price: e.target.value })} />
 
 
@@ -207,6 +262,7 @@ function CreatePage() {
                         <button type="submit" className="btn btn-primary" onClick={createProduct}>创作</button>
                     </form>
                 </article>
+
             </body>
 
         </html>

@@ -114,7 +114,7 @@ export default function NftMarket() {
         // setLoadingState('loaded') 
     }
 
-    async function BuyNft(nft) {
+    async function BuyNft(nft, i) {
         let isMetaMaskInstalled = () => {
             const { ethereum } = window;
             return Boolean(ethereum && ethereum.isMetaMask);
@@ -125,6 +125,11 @@ export default function NftMarket() {
             alert("no metaMask");
             console.log("No metamask");
         } else {
+            const waitCircle = document.querySelectorAll(".loadingSix")
+            waitCircle[i].style.display = "block"
+            const mask = document.querySelectorAll('.mask');
+            mask[i].style.display = "block";
+
             const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect()
             const provider = new ethers.providers.Web3Provider(connection)
@@ -135,12 +140,11 @@ export default function NftMarket() {
             const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
 
             const price = ethers.utils.parseUnits(nft.price.toString(), "ether")
-            
+
             const approvement = await xybContract.approve(nftMarketAddress, price)
             await approvement.wait()
-            
-            const transactions = await contract.buyNft(nft.contractAddress, nft.tokenId)
-            await transactions.wait()
+
+            const transactions = await contract.buyNft(nft.contractAddress, nft.tokenId).then(() => waitCircle[i].style.display = "none").then(() => mask[i].style.display = "none")
             console.log(transactions)
         };
 
@@ -236,7 +240,21 @@ export default function NftMarket() {
                                 nfts.map((nft, i) => (
                                     <div key={i} className="market_banner_photo_list"
                                         onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
-                                        <img src={nft.image} className="photo_list_img" />
+                                        <div className="mask"></div>
+                                        <div className="loadingSix">
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                            <span></span>
+                                        </div>
+
+                                        <div className="photo_list_img_container ">
+                                            <img src={nft.image} className="photo_list_img" />
+                                        </div>
                                         <div className="photo_list_photo_div ">
                                             <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
                                             <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
@@ -244,9 +262,12 @@ export default function NftMarket() {
                                             </div>
                                         </div>
                                         <div className="photo_list_photo_div1">
-                                            <p className="photo_list_photo_p1">{nft.price} ETH</p>
+                                            <p className="photo_list_photo_p1">
+                                                <img className="price-img" src="/price.svg" />
+                                                <span className="price-text"> {nft.price} ETH</span>
+                                            </p>
                                             <button className="photo_list_photo_button"
-                                                onClick={() => BuyNft(nft)}>Buy now</button>
+                                                onClick={() => BuyNft(nft, i)}>Buy now</button>
                                         </div>
                                     </div>
                                 ))
