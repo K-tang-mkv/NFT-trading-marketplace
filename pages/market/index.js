@@ -187,8 +187,8 @@ export default function NftMarket() {
                                 <input type="search" placeholder="查找" name="search" autoFocus="autofocus" />
                             </li>
                             <li className="shortcut_nav_li1">
-                                <Link href="/create">
-                                    <a>创作</a>
+                                <Link href="/">
+                                    <a>首页</a>
                                 </Link>
                                 <div className="shortcut_nav_div1">
                                     <a href="#">所有NFT</a>
@@ -202,7 +202,7 @@ export default function NftMarket() {
                                 </div>
                             </li>
                             <li className="shortcut_nav_li2">
-                                <Link href="/create"><a>上传</a></Link>
+                                <Link href="/create"><a>创作</a></Link>
                                 <div className="shortcut_nav_div2">
                                     <a href="#">排名</a>
                                     <a href="#">活动</a>
