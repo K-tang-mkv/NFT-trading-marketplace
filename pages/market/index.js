@@ -114,7 +114,7 @@ export default function NftMarket() {
         // setLoadingState('loaded') 
     }
 
-    async function BuyNft(nft, i) {
+    async function BuyNft(nft) {
         let isMetaMaskInstalled = () => {
             const { ethereum } = window;
             return Boolean(ethereum && ethereum.isMetaMask);
@@ -125,11 +125,6 @@ export default function NftMarket() {
             alert("no metaMask");
             console.log("No metamask");
         } else {
-            const waitCircle = document.querySelectorAll(".loadingSix")
-            waitCircle[i].style.display = "block"
-            const mask = document.querySelectorAll('.mask');
-            mask[i].style.display = "block";
-
             const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect()
             const provider = new ethers.providers.Web3Provider(connection)
@@ -150,7 +145,26 @@ export default function NftMarket() {
 
     }
 
-
+    async function Buy(nft, i) {
+        const btn = document.querySelectorAll(".photo_list_photo_button");
+        const waitCircle = document.querySelectorAll(".loadingSix")
+        
+        waitCircle[i].style.display = "block"
+        const mask = document.querySelectorAll('.mask');
+        mask[i].style.display = "block";
+        btn[i].innerHTML = "购买中"
+        const buyNft = BuyNft(nft)
+        buyNft.then(value => {
+            alert("购买成功");
+            loadNFTs()
+        },
+            reason => {
+                alert("购买失败");
+                waitCircle[i].style.display = "none"
+                mask[i].style.display = "none"
+                btn[i].innerHTML = "购买"
+        })
+    }
 
 
 
@@ -260,7 +274,7 @@ export default function NftMarket() {
                                                 <span className="price-text"> {nft.price} ETH</span>
                                             </p>
                                             <button className="photo_list_photo_button"
-                                                onClick={() => BuyNft(nft, i)}>Buy now</button>
+                                                onClick={() => Buy(nft, i)}>购买</button>
                                         </div>
                                     </div>
                                 ))
