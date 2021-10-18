@@ -25,7 +25,7 @@
 
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:415px) {
     article {
         padding: 0 !important;
         padding-left: 1.666667rem !important;
@@ -33,9 +33,119 @@
 
     }
 
+    .shortcut {
+        height: .833333rem;
+    }
+
     .shortcut ul li {
         display: none !important;
     }
+
+    .logo {
+        height: .833333rem;
+        font-size: .416667rem;
+    }
+
+    .logo a {
+        line-height: .833333rem;
+    }
+
+    .logo a::before {
+        display: inline-block;
+        content: '';
+        margin-top: .125rem;
+        width: .333333rem;
+        height: .333333rem;
+        background: url(/opensea.svg) no-repeat;
+        background-size: .333333rem .333333rem;
+
+
+
+
+
+
+    }
+
+    form {
+        margin-top: 1.666667rem;
+    }
+
+    .name input,
+    .link input {
+        width: 70%;
+        padding-left: .041667rem;
+        line-height: .833333rem !important;
+        border-radius: .066667rem;
+        border: 1px solid #ccc;
+        font-size: .25rem !important;
+        height: .833333rem !important;
+
+
+    }
+
+    .Ethereum,
+    .polygon {
+
+        border: 1pX solid #ccc;
+        height: .666667rem !important;
+        width: 100%;
+        padding-left: .125rem;
+        line-height: .666667rem !important;
+        cursor: pointer;
+        border-radius: .125rem;
+        font-size: .25rem;
+
+    }
+
+    .BlockChain {
+        position: relative;
+        width: 70%;
+        border-radius: .125rem;
+        height: .666667rem !important;
+        overflow: hidden;
+
+    }
+
+    .polygon img,
+    .Ethereum img {
+        width: .416667rem !important;
+        height: .416667rem !important;
+
+
+    }
+
+    .glyphicon-chevron-down:before {
+        vertical-align: text-bottom;
+    }
+
+    textarea {
+        font-size: .25rem !important;
+        height: 1.666667rem !important;
+    }
+
+    .item-flie {
+        height: 3.333333rem !important;
+    }
+
+    article h3 {
+        font-size: .416667rem !important;
+
+
+    }
+
+    article h4 {
+        font-size: .375rem !important;
+
+    }
+
+    .name {
+        margin-bottom: 1rem !important;
+    }
+
+    .link {
+        margin-bottom: 1rem !important;
+    }
+
 
 }
 
@@ -234,6 +344,8 @@ textarea {
 .polygon img {
     max-width: .266667rem;
     max-height: .266667rem;
+
+
 }
 
 .Ethereum img {
