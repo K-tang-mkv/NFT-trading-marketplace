@@ -191,9 +191,13 @@ function CreatePage() {
 
                         </ul>
                     </nav>
+                    <div class="click">
+                        123
+                    </div>
                 </header>
 
                 <article>
+
                     <h3>创作新的作品</h3>
                     <section className="new_item">
                         <h4>图片，视频，音频，或 3D 模型</h4>

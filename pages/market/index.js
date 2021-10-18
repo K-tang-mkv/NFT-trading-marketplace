@@ -217,6 +217,9 @@ export default function NftMarket() {
 
                         </ul>
                     </nav>
+                     <div class="click">
+                            123
+                        </div>
                 </header>
                 <section className="market_banner ">
 

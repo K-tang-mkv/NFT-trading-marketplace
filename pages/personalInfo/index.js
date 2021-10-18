@@ -128,7 +128,7 @@ export default function MyAssets() {
     }
     function show(id) {
 
-        
+
         $(id).addClass('border');
         var index = $(id).index();
         $(id).siblings().removeClass('border');
@@ -551,9 +551,9 @@ export default function MyAssets() {
                         <section className="work">、
                             <header>
                                 <ul>
-                                    <li id = "id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
-                                    <li id = "id2" onClick={() => show("#id2")}><strong>艺术品</strong> 0</li>
-                                    <li id = "id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
+                                    <li id="id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
+                                    <li id="id2" onClick={() => show("#id2")}><strong>艺术品</strong> 0</li>
+                                    <li id="id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
                                     <li><strong>活动</strong></li>
                                     <li><strong>提供</strong></li>
@@ -602,7 +602,7 @@ export default function MyAssets() {
                                                 <div key={i} className="market_banner_photo_list"
                                                     onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
                                                     <div className="mask"></div>
-                                                    
+
                                                     <div className="loadingSix">
                                                         <span></span>
                                                         <span></span>

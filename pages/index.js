@@ -20,10 +20,10 @@ export default function HomePage() {
     async function loadNFTs() {
 
         const provider = new ethers.providers.JsonRpcProvider("https://http-testnet.hecochain.com")
-        
-        
+
+
         const marketContract = new ethers.Contract(nftMarketAddress, Market, provider)
-        
+
         const pro = await marketContract.getRecommend(1)
         console.log(pro)
         let arr = new Array()
@@ -66,7 +66,7 @@ export default function HomePage() {
         const random = Math.floor(Math.random() * max);
         setRandom(random)
     }
-    if (nfts.length) {
+    if (true) {
         return (
             <div>
                 <Head>
@@ -74,14 +74,16 @@ export default function HomePage() {
                     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
                     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                     <title>NFC交易市场</title>
-                    <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive"/>
-                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive"/>
-                    <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive"/>
+                    <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive" />
+
+                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive" />
+                    <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive" />
                     {/* <link rel="stylesheet" href="../static/css/base.css" /> */}
+
                     <link rel="stylesheet" href="/css/commoon.css" />
                     <link rel="stylesheet" href="/css/index.css" />
-                    
-                    
+
+
                 </Head>
                 <main>
                     <header className="shortcut ">
@@ -129,15 +131,20 @@ export default function HomePage() {
                                         <a href="#">文档</a>
                                         <a href="#">东西</a>
                                     </div>
-    
+
                                 </li>
-    
+
                                 <li><Link href="/personalInfo/"><a>个人</a></Link></li>
-    
+
                             </ul>
+
                         </nav>
+                        <div class="click">
+                            123
+                        </div>
+
                     </header>
-    
+
                     <section className="banner ">
                         <div className="banner-bg">
                         </div>
@@ -176,18 +183,18 @@ export default function HomePage() {
                                 </a>
                             </div>
                         </div>
-    
+
                     </section>
-    
+
                 </main>
-    
-    
+
+
             </div >
         )
-    }else {
+    } else {
         return (
             <h1>Loading...</h1>
         )
     }
-} 
-    
+}
+
