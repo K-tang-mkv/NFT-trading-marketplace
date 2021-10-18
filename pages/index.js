@@ -138,7 +138,7 @@ export default function HomePage() {
                         </ul>
 
                     </nav>
-                    <div class="click">
+                    <div className="click">
                         123
                     </div>
 
@@ -155,9 +155,9 @@ export default function HomePage() {
                         </h2>
                         <ul>
                             <li>
-                                <a href="/market">
-                                    市场
-                                </a>
+                                <Link href="/market">
+                                    <a>市场</a>
+                                </Link>
                             </li>
                             <li>
                                 <a href="">
