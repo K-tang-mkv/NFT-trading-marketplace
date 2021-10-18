@@ -167,7 +167,6 @@ export default function NftMarket() {
                 <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
                 <link rel="stylesheet" href="/css/base.css" />
                 <link rel="stylesheet" href="/css/commoon.css" />
-                <link rel="stylesheet" href="/css/information.css" />
                 <link rel="stylesheet" href="/css/market.css" />
                 <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js"></script>
 
@@ -220,13 +219,7 @@ export default function NftMarket() {
                     </nav>
                 </header>
                 <section className="market_banner ">
-                    <div className="market_banner_search">
-                        <div className="input_div">
-                            <input type="text" className="market_control" placeholder="搜索NFT商品">
-                            </input>
-                        </div>
 
-                    </div>
                     <div className="market_banner_section">
                         <div className="market_banner_nav">
                             <ul className="market_banner_nav_ul">

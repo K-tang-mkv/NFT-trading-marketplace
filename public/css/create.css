@@ -1,161 +1,224 @@
-
 @media screen and (min-width:1200px) {
     html {
         font-size: 120px !important;
     }
 }
+
+@media screen and (max-width:900px) {
+    .item-type {
+        display: none !important;
+
+    }
+
+    p {
+        display: none;
+    }
+
+
+}
+
+@media screen and (max-width:800px) {
+    article {
+        top: 2.083333rem !important;
+    }
+
+
+}
+
+@media screen and (max-width:400px) {
+    article {
+        padding: 0 !important;
+        padding-left: 1.666667rem !important;
+
+
+    }
+
+    .shortcut ul li {
+        display: none !important;
+    }
+
+}
+
 .shortcut ul li:nth-child(2) {
     border-bottom: 1px solid blue;
 }
-.shortcut ul li:nth-child(2) a:hover{
+
+.shortcut ul li:nth-child(2) a:hover {
     border: none;
 }
-h1 { 
-    margin:0;  
-    font-size: 2em;  
+
+h1 {
+    margin: 0;
+    font-size: 2em;
 }
-a{
-    text-decoration: none!important;
+
+a {
+    text-decoration: none !important;
 }
+
 p {
     font-size: .1rem;
 }
+
 article {
-    
-    
+
+
     position: relative;
     top: .75rem;
-    padding-left:2.25rem;
-    padding-right: 2.25rem; 
+    padding-left: 2.916667rem;
+    padding-right: 2.25rem;
     background: #fff;
-    
-    
+
+
 }
+
 article h3 {
     font-size: .2rem;
-    margin-bottom: .05rem!important;
-    margin-top: 0!important;
-    
+    margin-bottom: .05rem !important;
+    margin-top: 0 !important;
+
 }
+
 article h4 {
     font-size: .15rem;
-    margin-bottom: .05rem!important;
-    margin-top: 0!important;
+    margin-bottom: .05rem !important;
+    margin-top: 0 !important;
 }
 
 .item-type {
-    margin-bottom: .041667rem!important;
-    margin-top: 0!important;
+    margin-bottom: .041667rem !important;
+    margin-top: 0 !important;
 }
-.new_item{
-    width: 100%;
-    position:relative;
+
+.new_item {
+    width: 70%;
+    position: relative;
 }
+
 .item_uplode {
-   
+
     display: flex;
     position: relative;
     align-items: center;
     justify-content: center;
-    margin-right:1.083333rem; 
+    margin-right: .416667rem;
     margin-bottom: .25rem;
     border: 3px dashed rgb(229, 232, 235);
-    
+
 }
+
 .item-flie {
-     opacity: 0; 
-     width: 100%;
-     height: 2.083333rem;
-     cursor: pointer;
-    
+    opacity: 0;
+    width: 100%;
+    height: 2.083333rem;
+    cursor: pointer;
+
 }
+
 .tips {
     position: absolute;
     text-align: center;
-    
+
 
 }
+
 .item_uplode1 img {
-   
+
     max-width: 100%;
     height: auto;
     margin-bottom: .041667rem;
-    
+
 }
+
 .name {
-    margin-bottom:  .583333rem;
+    margin-bottom: .583333rem;
 }
-.imgs{
+
+.imgs {
     display: none;
-    width: 3.5rem;
-    height:1.5rem;
+    width: 100%;
+    height: 1.5rem;
 }
+
 .name p {
     display: none;
     padding-left: .166667rem;
     font-size: .133333rem;
- 
+
 }
 
-.name  input,.link input {
-    width: 100%;
-    line-height: 3;
+.name input,
+.link input {
+    width: 70%;
+    padding-left: .041667rem;
+    line-height: .416667rem;
     border-radius: .066667rem;
-    border:1px solid #ccc;
-    
-    
+    border: 1px solid #ccc;
+    font-size: .116667rem;
+    height: .416667rem;
+
+
 }
 
 .link {
     margin-bottom: .416667rem;
 }
 
-p{
+p {
     margin-bottom: .041667rem;
 }
-textarea{
-    width: 100%;
+
+textarea {
+    width: 70%;
     padding-left: .083333rem;
     padding-top: .083333rem;
     color: #666;
     border: 1px solid #ccc;
     border-radius: .066667rem;
-   
+    resize: none;
+    font-size: .116667rem;
+    height: .833333rem;
+
 }
+
 .detail {
     margin-bottom: .416667rem;
-   
+
 }
 
 
 .choose {
-    
+
     height: .833333rem;
-    
+
     background-color: #fff;
     margin-bottom: 50px;
 }
-.BlockChain{
+
+.BlockChain {
     position: relative;
-    width:100%;
+    width: 70%;
 
     height: .4rem;
-    overflow:hidden;
-    
+    overflow: hidden;
+
 }
 
-.Ethereum img ,.polygon img{
+.Ethereum img,
+.polygon img {
     border-radius: .133333rem;
 }
-.Ethereum,.polygon{
-   
+
+.Ethereum,
+.polygon {
+
     border: 1pX solid #ccc;
-    height:100%;
-    width:100%;
-    padding-left:.125rem;
+    height: 100%;
+    width: 100%;
+    padding-left: .125rem;
     line-height: .4rem;
-    cursor:pointer;
-    
+    cursor: pointer;
+
 }
 
 .choose span {
@@ -164,17 +227,20 @@ textarea{
     right: .041667rem;
     cursor: pointer;
     color: #ccc;
-   
+
 
 }
+
 .polygon img {
     max-width: .266667rem;
     max-height: .266667rem;
 }
+
 .Ethereum img {
     max-width: .266667rem;
     max-height: .266667rem;
 }
-.shadow{
-    box-shadow: 0 .008333rem .066667rem  .008333rem rgba(0,0,0,.3)!important;
+
+.shadow {
+    box-shadow: 0 .008333rem .066667rem .008333rem rgba(0, 0, 0, .3) !important;
 }
