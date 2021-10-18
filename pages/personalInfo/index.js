@@ -336,15 +336,23 @@ export default function MyAssets() {
         if (buttonRecommend[i].innerHTML == "下架") {
             buttonRecommend[i].innerHTML = "下架中"
             const upToMall = setNftUpOrDownMall(nft)
-            upToMall.then(() => {
+            upToMall.then(value => {
                 alert("下架成功"); buttonRecommend[i].innerHTML = "上架";
+                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+            },
+            reason => {
+                alert("下架失败"); buttonRecommend[i].innerHTML = "下架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             })
         } else {
             buttonRecommend[i].innerHTML = "上架中"
             const upToMall = setNftUpOrDownMall(nft)
-            upToMall.then(() => {
+            upToMall.then(value => {
                 alert("上架成功"); buttonRecommend[i].innerHTML = "下架";
+                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+            },
+            reason => {
+                alert("上架失败"); buttonRecommend[i].innerHTML = "上架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             })
         }
