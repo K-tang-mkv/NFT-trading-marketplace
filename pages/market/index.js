@@ -16,8 +16,16 @@ import Market from '../../abi/nftmarket.json'
 import xybToken from "../../abi/xybToken.json"
 
 export default function NftMarket() {
+
     const [nfts, setNfts] = useState([])
+    const [metaMask, setMetaMask] = useState()
     useEffect(() => {
+        let isMetaMaskInstalled = () => {
+            const { ethereum } = window;
+            return Boolean(ethereum && ethereum.isMetaMask);
+        };
+        const metaMask = isMetaMaskInstalled()
+        setMetaMask(metaMask)
         loadNFTs()
     }, [])
 
@@ -115,13 +123,8 @@ export default function NftMarket() {
     }
 
     async function BuyNft(nft) {
-        let isMetaMaskInstalled = () => {
-            const { ethereum } = window;
-            return Boolean(ethereum && ethereum.isMetaMask);
-        };
-
-
-        if (!isMetaMaskInstalled()) {
+        
+        if (!metaMask) {
             alert("no metaMask");
             console.log("No metamask");
         } else {
@@ -149,21 +152,25 @@ export default function NftMarket() {
         const btn = document.querySelectorAll(".photo_list_photo_button");
         const waitCircle = document.querySelectorAll(".loadingSix")
         
-        waitCircle[i].style.display = "block"
-        const mask = document.querySelectorAll('.mask');
-        mask[i].style.display = "block";
-        btn[i].innerHTML = "购买中"
-        const buyNft = BuyNft(nft)
-        buyNft.then(value => {
-            alert("购买成功");
-            loadNFTs()
-        },
-            reason => {
-                alert("购买失败");
-                waitCircle[i].style.display = "none"
-                mask[i].style.display = "none"
-                btn[i].innerHTML = "购买"
-        })
+        if (metaMask) {
+            waitCircle[i].style.display = "block"
+            const mask = document.querySelectorAll('.mask');
+            mask[i].style.display = "block";
+            btn[i].innerHTML = "购买中"
+            const buyNft = BuyNft(nft)
+            buyNft.then(value => {
+                alert("购买成功");
+                loadNFTs()
+            },
+                reason => {
+                    alert("购买失败");
+                    waitCircle[i].style.display = "none"
+                    mask[i].style.display = "none"
+                    btn[i].innerHTML = "购买"
+            })
+        }else
+            alert("没有metaMask钱包")
+       
     }
 
 
