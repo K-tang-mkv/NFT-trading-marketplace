@@ -160,9 +160,9 @@ export default function HomePage() {
                                 </Link>
                             </li>
                             <li>
-                                <a href="/create">
-                                    创作
-                                </a>
+                                <Link href="/create">
+                                    <a>创作</a>
+                                </Link>
                             </li>
                         </ul>
                         <a className="introduce" href="#">在该主页上你将获得的特色服务</a>
