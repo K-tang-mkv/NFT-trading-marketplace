@@ -117,37 +117,47 @@ function CreatePage() {
 
     }
     async function Create(url) {
-        console.log("FUck")
-        const web3Modal = new Web3Modal();
-        const connection = await web3Modal.connect()
-        const provider = new ethers.providers.Web3Provider(connection)
-        const signer = provider.getSigner()
+        let isMetaMaskInstalled = () => {
+            const { ethereum } = window;
+            return Boolean(ethereum && ethereum.isMetaMask);
+        };
 
-        // create the nft token
-        let contract = new ethers.Contract(nftAddress, NFT, signer)
-        let transaction = await contract.createToken(url)
-        let tx = await transaction.wait()
-        let event = tx.events[0]
-        let value = event.args[2]
-        let tokenId = value.toNumber()
-        const price = ethers.utils.parseUnits(formInput.price, 'ether')
-        const product = {
-            contractAddress: nftAddress,
-            tokenId: tokenId,
-            name: "Metaverse",
-            symbol: "METT",
-            uri: url,
-            headImg: url,
-            price: price,
-            info: formInput.description,
-            nftType: 1,
-            password: ''
+
+        if (!isMetaMaskInstalled()) {
+            alert("no metaMask");
+            console.log("No metamask");
+        } else {
+            const web3Modal = new Web3Modal();
+            const connection = await web3Modal.connect()
+            const provider = new ethers.providers.Web3Provider(connection)
+            const signer = provider.getSigner()
+
+            // create the nft token
+            let contract = new ethers.Contract(nftAddress, NFT, signer)
+            let transaction = await contract.createToken(url)
+            let tx = await transaction.wait()
+            let event = tx.events[0]
+            let value = event.args[2]
+            let tokenId = value.toNumber()
+            const price = ethers.utils.parseUnits(formInput.price, 'ether')
+            const product = {
+                contractAddress: nftAddress,
+                tokenId: tokenId,
+                name: "Metaverse",
+                symbol: "METT",
+                uri: url,
+                headImg: url,
+                price: price,
+                info: formInput.description,
+                nftType: 1,
+                password: ''
+            }
+            // create product on the market
+            contract = new ethers.Contract(nftMarketAddress, Market, signer)
+
+            transaction = await contract.addProduct(product)
+            await transaction.wait()
         }
-        // create product on the market
-        contract = new ethers.Contract(nftMarketAddress, Market, signer)
-
-        transaction = await contract.addProduct(product)
-        await transaction.wait()
     }
 
     return (

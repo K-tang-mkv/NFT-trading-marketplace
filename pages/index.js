@@ -66,7 +66,6 @@ export default function HomePage() {
         const random = Math.floor(Math.random() * max);
         setRandom(random)
     }
-    if (true) {
         return (
             <div>
                 <Head>
@@ -100,8 +99,8 @@ export default function HomePage() {
                                     <input type="search" placeholder="查找" name="search" autoFocus="autofocus" />
                                 </li>
                                 <li className="shortcut_nav_li1">
-                                    <Link href="/create">
-                                        <a>创作</a>
+                                    <Link href="/">
+                                        <a>首页</a>
                                     </Link>
                                     <div className="shortcut_nav_div1">
                                         <a href="#">所有NFT</a>
@@ -115,7 +114,7 @@ export default function HomePage() {
                                     </div>
                                 </li>
                                 <li className="shortcut_nav_li2">
-                                    <Link href="/create"><a>上传</a></Link>
+                                    <Link href="/create"><a>创作</a></Link>
                                     <div className="shortcut_nav_div2">
                                         <a href="#">排名</a>
                                         <a href="#">活动</a>
@@ -156,8 +155,8 @@ export default function HomePage() {
                             </h2>
                             <ul>
                                 <li>
-                                    <a href="#">
-                                        搜索
+                                    <a href="/market">
+                                        市场
                                     </a>
                                 </li>
                                 <li>
@@ -171,12 +170,12 @@ export default function HomePage() {
                         <div className="banner-img">
                             <div className="banner-works">
                                 <a href="#">
-                                    <img src={nfts[random].image} alt="" />
-                                    {console.log(nfts)}
+                                    <img src={nfts.length ? nfts[random].image : '/1.jpg'} alt="" />
+                                    
                                     <div className="works_introduce">
                                         <div className="suibian"><img src="/named.jpg" alt="" /></div>
                                         <div className="suibian2">
-                                            <h3 >{nfts[random].name}</h3>
+                                            <h3 >{nfts.lenfth ? nfts[random].name : "NFT"}</h3>
                                             <div >name</div>
                                         </div>
                                     </div>
@@ -191,10 +190,6 @@ export default function HomePage() {
 
             </div >
         )
-    } else {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
-}
 
+} 
+    

@@ -31,6 +31,7 @@
 
     .market_banner_section .market_banner_photo {
         margin-left: 80px !important;
+        justify-content: center !important;
     }
 
     .market_banner .market_banner_section {
