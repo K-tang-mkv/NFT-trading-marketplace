@@ -200,7 +200,7 @@ export default function MyAssets() {
                     owned = true
             }
             for (let j = 0; j < info.length; j++) {
-                if (info[j].tokenId.toNumber() == tokenId && !owned)
+                if (info[j].tokenId.toNumber() == tokenId && !owned && info[j].owner == accountAddress)
                     arr.push(info[j]);
             }
         }
