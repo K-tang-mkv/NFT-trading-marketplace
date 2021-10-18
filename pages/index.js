@@ -160,7 +160,7 @@ export default function HomePage() {
                                 </Link>
                             </li>
                             <li>
-                                <a href="">
+                                <a href="/create">
                                     创作
                                 </a>
                             </li>
