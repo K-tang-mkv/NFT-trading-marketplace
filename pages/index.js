@@ -66,7 +66,6 @@ export default function HomePage() {
         const random = Math.floor(Math.random() * max);
         setRandom(random)
     }
-    if (nfts.length) {
         return (
             <div>
                 <Head>
@@ -164,12 +163,12 @@ export default function HomePage() {
                         <div className="banner-img">
                             <div className="banner-works">
                                 <a href="#">
-                                    <img src={nfts[random].image} alt="" />
-                                    {console.log(nfts)}
+                                    <img src={nfts.length ? nfts[random].image : '/1.jpg'} alt="" />
+                                    
                                     <div className="works_introduce">
                                         <div className="suibian"><img src="/named.jpg" alt="" /></div>
                                         <div className="suibian2">
-                                            <h3 >{nfts[random].name}</h3>
+                                            <h3 >{nfts.lenfth ? nfts[random].name : "NFT"}</h3>
                                             <div >name</div>
                                         </div>
                                     </div>
@@ -184,10 +183,6 @@ export default function HomePage() {
     
             </div >
         )
-    }else {
-        return (
-            <h1>Loading...</h1>
-        )
-    }
+
 } 
     

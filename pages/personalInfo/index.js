@@ -10,7 +10,7 @@ import { create as ipfsHttpClient } from 'ipfs-http-client'
 import $ from 'jquery'
 
 import {
-    nftMarketAddress, tokenXYBaddress
+    nftMarketAddress, tokenXYBaddress, nftAddress
 } from '../../config'
 
 import Market from '../../abi/nftmarket.json'
@@ -62,6 +62,9 @@ const linkStyle = {
 export default function MyAssets() {
     const [fileUrl, setFileUrl] = useState(null)
     const [nfts, setNfts] = useState([])
+    const [nftsUpMall, setUpMall] = useState([])
+    const [nftsDownMall, setDownMall] = useState([])
+    
     const [userInfo, setUsers] = useState([])
     const [signer, setSigner] = useState(null)
 
@@ -90,17 +93,17 @@ export default function MyAssets() {
 
     }, [])
 
-    function chu_mo(num) {
+    function chu_mo(box, num) {
 
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
-        btn1[num].style.display = "block";
+        btn1[box+num].style.display = "block";
         return false;
 
     }
 
-    function li_kai(num) {
+    function li_kai(box, num) {
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
-        btn1[num].style.display = "none";
+        btn1[box+num].style.display = "none";
         return false;
 
     }
@@ -171,7 +174,7 @@ export default function MyAssets() {
             motto: user.motto,
         }
         setUsers(ushering)
-        const pro = await marketContract.getRecommend(1)
+        //const pro = await marketContract.getRecommend(1)
         const nftContract = await marketContract.getMyContract(accountAddress)
 
         // get the goods info of each nftContract 
@@ -179,12 +182,15 @@ export default function MyAssets() {
         for (let i = 0; i < nftContract.length; i++) {
             let info = await marketContract.getGoodsByContractAddress(nftContract[i])
             for (let i = 0; i < info.length; i++) {
-                arr.push(info[i]);
+                if (info[i].owner == accountAddress) {
+                    arr.push(info[i])
+                }
             }
+            //console.log("info", info.length)
         }
 
         const buyNfts = await marketContract.getMyBuyOrder(accountAddress)
-        console.log(buyNfts)
+        console.log("buyNfts", buyNfts)
         for (let i = 0; i < buyNfts.length; i++) {
             let info = await marketContract.getGoodsByContractAddress(buyNfts[i].contractAddress)
             const tokenId = buyNfts[i].tokenId.toNumber()
@@ -210,27 +216,44 @@ export default function MyAssets() {
                 name: i.name,
                 description: i.info,
                 type: i.nftType.toNumber(),
-                upMall: i.upMall
+                upMall: i.upMall,
+                owner: i.owner
             }
             return item;
         }))
 
+        const upMall = new Array()
+        const downMall = new Array()
+        for (let i = 0; i < proInfo.length; i++) {
+            if (proInfo[i].upMall) {
+                upMall.push(proInfo[i])
+            } else
+                downMall.push(proInfo[i])
+        }
         judgeWhetherRecommended(marketContract, proInfo)
 
         setAddress(accountAddress)
         setMarketContract(marketContract)
         setNfts(proInfo)
+        setUpMall(upMall)
+        setDownMall(downMall)
         setLoadingState('loaded')
     }
 
+    async function setNftUpOrDownMall(nft) {
+
+        const upSheld = await marketContract.setUpMall(nftAddress, nft.tokenId)
+        await upSheld.wait()
+
+    }
     async function setNftRecommend(nft) {
         //const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
         const xybContract = new ethers.Contract(tokenXYBaddress, xybToken, signer)
-
+        console.log("upMall", nft.upMall)
         const price = await marketContract.adverPrice()
         const adverPrice = ethers.utils.parseUnits(price.toString(), "ether")
 
-        console.log(adverPrice)
+        console.log("adverPrice", adverPrice)
         const approvement = await xybContract.approve(nftMarketAddress, adverPrice)
         await approvement.wait()
 
@@ -243,9 +266,10 @@ export default function MyAssets() {
         await transaction.wait()
     }
 
-    async function setIfRecommend(e, nft, i) {
+    async function setIfRecommend(e, nft, box, num) {
         const buttonRecommend = document.querySelectorAll('.photo_list_photo_button')
         const waitCircle = document.querySelectorAll(".loadingSix")
+        const i = box + num
         waitCircle[i].style.display = "block"
         const mask = document.querySelectorAll('.mask');
         mask[i].style.display = "block";
@@ -272,7 +296,7 @@ export default function MyAssets() {
 
     }
     async function judgeWhetherRecommended(marketContract, nfts) {
-
+        
         const arr = new Array(nfts.length)
         for (let i = 0; i < nfts.length; i++) {
             const listed = false
@@ -299,7 +323,31 @@ export default function MyAssets() {
             }
         }
         setRecommend(arr)
-        console.log(arr)
+        // console.log(arr)
+    }
+
+    async function setIfUpMall(e, nft, box, num) {
+        const buttonRecommend = document.querySelectorAll('.photo_list_photo_button')
+        const waitCircle = document.querySelectorAll(".loadingSix")
+        const i = box + num // find the location of the element
+        waitCircle[i].style.display = "block"
+        const mask = document.querySelectorAll('.mask');
+
+        if (buttonRecommend[i].innerHTML == "下架") {
+            buttonRecommend[i].innerHTML = "下架中"
+            const upToMall = setNftUpOrDownMall(nft)
+            upToMall.then(() => {
+                alert("下架成功"); buttonRecommend[i].innerHTML = "上架";
+                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+            })
+        } else {
+            buttonRecommend[i].innerHTML = "上架中"
+            const upToMall = setNftUpOrDownMall(nft)
+            upToMall.then(() => {
+                alert("上架成功"); buttonRecommend[i].innerHTML = "下架";
+                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+            })
+        }
     }
 
     async function onChange(e) {
@@ -339,6 +387,8 @@ export default function MyAssets() {
             preview.src = "";
         }
     }
+
+
     if (!signer) {
         return (
             <div className="my-5 text-center ">
@@ -346,7 +396,7 @@ export default function MyAssets() {
 
 
                 <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
-                {console.log(nfts.length)}
+                
                 {/* <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" /> */}
 
                 <link rel="stylesheet" href="../../static/css/base.css" />
@@ -552,7 +602,7 @@ export default function MyAssets() {
                             <header>
                                 <ul>
                                     <li id = "id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
-                                    <li id = "id2" onClick={() => show("#id2")}><strong>艺术品</strong> 0</li>
+                                    <li id = "id2" onClick={() => show("#id2")}><strong>已上架 可推荐</strong> 0</li>
                                     <li id = "id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
                                     <li><strong>活动</strong></li>
@@ -600,7 +650,7 @@ export default function MyAssets() {
                                         {
                                             nfts.map((nft, i) => (
                                                 <div key={i} className="market_banner_photo_list"
-                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    onMouseOver={() => chu_mo(0, i)} onMouseOut={() => li_kai(0, i)}>
                                                     <div className="mask"></div>
                                                     
                                                     <div className="loadingSix">
@@ -630,7 +680,8 @@ export default function MyAssets() {
                                                             <span className="price-text"> {nft.price} ETH</span>
                                                         </p>
 
-                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft, i)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
+                                                        <button className="photo_list_photo_button" onClick={(e) => {
+                                                        setIfUpMall(e, nft, 0, i)}}>{nft.upMall ? "下架" : "上架"}</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -640,13 +691,13 @@ export default function MyAssets() {
                                     </div>
                                     <div className="market_banner_photo">
                                         {
-                                            nfts.map((nft, i) => (
+                                            nftsUpMall.map((nft, i) => (
 
                                                 <div key={i} className="market_banner_photo_list"
 
-                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
+                                                    onMouseOver={() => chu_mo(nfts.length, i)} onMouseOut={() => li_kai(nfts.length, i)}>
                                                     <div className="mask"></div>
-                                                    123
+                                                
                                                     <div className="loadingSix">
                                                         <span></span>
                                                         <span></span>
@@ -673,7 +724,7 @@ export default function MyAssets() {
                                                             <span className="price-text"> {nft.price} ETH</span>
                                                         </p>
 
-                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
+                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft, nfts.length, i)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -684,7 +735,7 @@ export default function MyAssets() {
                                     </div>
                                     <div className="market_banner_photo">
                                         {
-                                            nfts.map((nft, i) => (
+                                            nftsUpMall.map((nft, i) => (
                                                 <div key={i} className="market_banner_photo_list"
                                                     onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
                                                     <div className="mask"></div>
