@@ -15,6 +15,7 @@ import {
 
 import Market from '../../abi/nftmarket.json'
 import xybToken from '../../abi/xybToken.json'
+import NFT from '../../abi/nft.json'
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0')
 
@@ -64,11 +65,13 @@ export default function MyAssets() {
     const [nfts, setNfts] = useState([])
     const [nftsUpMall, setUpMall] = useState([])
     const [nftsDownMall, setDownMall] = useState([])
-    
+
     const [userInfo, setUsers] = useState([])
     const [signer, setSigner] = useState(null)
 
     const [marketContract, setMarketContract] = useState()
+    const [nftContract, setNftContract] = useState()
+
     const [recommeded, setRecommend] = useState([])
 
     const [userAddress, setAddress] = useState()
@@ -96,14 +99,14 @@ export default function MyAssets() {
     function chu_mo(box, num) {
 
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
-        btn1[box+num].style.display = "block";
+        btn1[box + num].style.display = "block";
         return false;
 
     }
 
     function li_kai(box, num) {
         var btn1 = document.querySelectorAll(".photo_list_photo_button");
-        btn1[box+num].style.display = "none";
+        btn1[box + num].style.display = "none";
         return false;
 
     }
@@ -131,7 +134,7 @@ export default function MyAssets() {
     }
     function show(id) {
 
-        
+
         $(id).addClass('border');
         var index = $(id).index();
         $(id).siblings().removeClass('border');
@@ -165,7 +168,7 @@ export default function MyAssets() {
 
 
         const marketContract = new ethers.Contract(nftMarketAddress, Market, signer)
-
+        const NftContract = new ethers.Contract(nftAddress, NFT, signer)
         const user = await marketContract.getUser(accountAddress)
 
         var ushering = {
@@ -234,6 +237,7 @@ export default function MyAssets() {
 
         setAddress(accountAddress)
         setMarketContract(marketContract)
+        setNftContract(NftContract)
         setNfts(proInfo)
         setUpMall(upMall)
         setDownMall(downMall)
@@ -241,6 +245,8 @@ export default function MyAssets() {
     }
 
     async function setNftUpOrDownMall(nft) {
+        const approveNft = await nftContract.approve(nftMarketAddress, nft.tokenId)
+        await approveNft.wait()
 
         const upSheld = await marketContract.setUpMall(nftAddress, nft.tokenId)
         await upSheld.wait()
@@ -253,9 +259,11 @@ export default function MyAssets() {
         const price = await marketContract.adverPrice()
         const adverPrice = ethers.utils.parseUnits(price.toString(), "ether")
 
+
         console.log("adverPrice", adverPrice)
         const approvement = await xybContract.approve(nftMarketAddress, adverPrice)
         await approvement.wait()
+
 
         const transaction = await marketContract.setRecommend(nft.contractAddress, nft.tokenId, nft.type)
         await transaction.wait()
@@ -296,7 +304,7 @@ export default function MyAssets() {
 
     }
     async function judgeWhetherRecommended(marketContract, nfts) {
-        
+
         const arr = new Array(nfts.length)
         for (let i = 0; i < nfts.length; i++) {
             const listed = false
@@ -340,10 +348,10 @@ export default function MyAssets() {
                 alert("下架成功"); buttonRecommend[i].innerHTML = "上架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             },
-            reason => {
-                alert("下架失败"); buttonRecommend[i].innerHTML = "下架";
-                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
-            })
+                reason => {
+                    alert("下架失败"); buttonRecommend[i].innerHTML = "下架";
+                    waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+                })
         } else {
             buttonRecommend[i].innerHTML = "上架中"
             const upToMall = setNftUpOrDownMall(nft)
@@ -351,10 +359,10 @@ export default function MyAssets() {
                 alert("上架成功"); buttonRecommend[i].innerHTML = "下架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             },
-            reason => {
-                alert("上架失败"); buttonRecommend[i].innerHTML = "上架";
-                waitCircle[i].style.display = "none"; mask[i].style.display = "none"
-            })
+                reason => {
+                    alert("上架失败"); buttonRecommend[i].innerHTML = "上架";
+                    waitCircle[i].style.display = "none"; mask[i].style.display = "none"
+                })
         }
     }
 
@@ -404,13 +412,13 @@ export default function MyAssets() {
 
 
                 <script async type="text/javascript" src="/static/lib/bootstrap.min.js" />
-                
+
                 {/* <link rel="stylesheet" href="../../static/css/bootstrap/css/bootstrap.min.css" /> */}
 
-                <link rel="stylesheet" href="../../static/css/base.css" />
-                <link rel="stylesheet" href="../../static/css/commoon.css" />
-                <link rel="stylesheet" href="../../static/css/index.css" />
-                <link rel="stylesheet" href="../../static/css/information.css" />
+                <link rel="stylesheet" href="/css/bootstrap/css/bootstrap.min.css" />
+
+                <link rel="stylesheet" href="/css/commoon.css" />
+                <link rel="stylesheet" href="/css/information.css" />
 
 
                 <header className="shortcut ">
@@ -609,9 +617,9 @@ export default function MyAssets() {
                         <section className="work">、
                             <header>
                                 <ul>
-                                    <li id = "id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
-                                    <li id = "id2" onClick={() => show("#id2")}><strong>已上架 可推荐</strong> 0</li>
-                                    <li id = "id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
+                                    <li id="id1" className="border" onClick={() => show("#id1")}><strong>全部</strong> 1</li>
+                                    <li id="id2" onClick={() => show("#id2")}><strong>已上架 可推荐</strong> 0</li>
+                                    <li id="id3" onClick={() => show("#id3")}><strong>游戏</strong> 0</li>
                                     <li><strong>隐藏</strong> 0</li>
                                     <li><strong>活动</strong></li>
                                     <li><strong>提供</strong></li>
@@ -660,7 +668,7 @@ export default function MyAssets() {
                                                 <div key={i} className="market_banner_photo_list"
                                                     onMouseOver={() => chu_mo(0, i)} onMouseOut={() => li_kai(0, i)}>
                                                     <div className="mask"></div>
-                                                    
+
                                                     <div className="loadingSix">
                                                         <span></span>
                                                         <span></span>
@@ -689,7 +697,8 @@ export default function MyAssets() {
                                                         </p>
 
                                                         <button className="photo_list_photo_button" onClick={(e) => {
-                                                        setIfUpMall(e, nft, 0, i)}}>{nft.upMall ? "下架" : "上架"}</button>
+                                                            setIfUpMall(e, nft, 0, i); console.log("owner", nft.owner)
+                                                        }}>{nft.upMall ? "下架" : "上架"}</button>
                                                     </div>
                                                 </div>
                                             ))
@@ -705,7 +714,7 @@ export default function MyAssets() {
 
                                                     onMouseOver={() => chu_mo(nfts.length, i)} onMouseOut={() => li_kai(nfts.length, i)}>
                                                     <div className="mask"></div>
-                                                
+
                                                     <div className="loadingSix">
                                                         <span></span>
                                                         <span></span>
