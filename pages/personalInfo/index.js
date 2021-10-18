@@ -245,8 +245,11 @@ export default function MyAssets() {
     }
 
     async function setNftUpOrDownMall(nft) {
-        const approveNft = await nftContract.approve(nftMarketAddress, nft.tokenId)
-        await approveNft.wait()
+        // if (!nft.upMall) {
+        //     const approveNft = await nftContract.approve(nftMarketAddress, nft.tokenId)
+        //     await approveNft.wait()
+        // }
+
 
         const upSheld = await marketContract.setUpMall(nftAddress, nft.tokenId)
         await upSheld.wait()
@@ -286,7 +289,7 @@ export default function MyAssets() {
             buttonRecommend[i].innerHTML = "推荐中"
             const temp = setNftRecommend(nft)
 
-            temp.then(value => { alert("推荐成功"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "取消推荐"; mask[i].style.display = "none" },
+            temp.then(value => { alert("推荐成功"); loadNFTs(signer); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "取消推荐"; mask[i].style.display = "none" },
                 reason => { alert("推荐失败"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "推荐"; mask[i].style.display = "none" })
 
             console.log(temp)
@@ -295,7 +298,7 @@ export default function MyAssets() {
             buttonRecommend[i].innerHTML = "取消中"
             const temp = setNftLostRecommend(nft)
 
-            temp.then(value => { alert("取消成功"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "推荐"; mask[i].style.display = "none" },
+            temp.then(value => { alert("取消成功"); loadNFTs(signer); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "推荐"; mask[i].style.display = "none" },
                 reason => { alert("取消失败"); waitCircle[i].style.display = "none"; buttonRecommend[i].innerHTML = "取消推荐"; mask[i].style.display = "none" })
 
 
@@ -340,12 +343,12 @@ export default function MyAssets() {
         const i = box + num // find the location of the element
         waitCircle[i].style.display = "block"
         const mask = document.querySelectorAll('.mask');
-
+        mask[i].style.display = "block";
         if (buttonRecommend[i].innerHTML == "下架") {
             buttonRecommend[i].innerHTML = "下架中"
             const upToMall = setNftUpOrDownMall(nft)
             upToMall.then(value => {
-                alert("下架成功"); buttonRecommend[i].innerHTML = "上架";
+                alert("下架成功"); loadNFTs(signer); buttonRecommend[i].innerHTML = "上架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             },
                 reason => {
@@ -356,7 +359,7 @@ export default function MyAssets() {
             buttonRecommend[i].innerHTML = "上架中"
             const upToMall = setNftUpOrDownMall(nft)
             upToMall.then(value => {
-                alert("上架成功"); buttonRecommend[i].innerHTML = "下架";
+                alert("上架成功"); loadNFTs(signer); buttonRecommend[i].innerHTML = "下架";
                 waitCircle[i].style.display = "none"; mask[i].style.display = "none"
             },
                 reason => {
@@ -751,42 +754,7 @@ export default function MyAssets() {
 
                                     </div>
                                     <div className="market_banner_photo">
-                                        {
-                                            nftsUpMall.map((nft, i) => (
-                                                <div key={i} className="market_banner_photo_list"
-                                                    onMouseOver={() => chu_mo(i)} onMouseOut={() => li_kai(i)}>
-                                                    <div className="mask"></div>
-                                                    <div className="loadingSix">
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                        <span></span>
-                                                    </div>
-                                                    <div className="photo_list_img_container ">
-                                                        <img src={nft.image} className="photo_list_img" />
-                                                    </div>
-
-                                                    <div className="photo_list_photo_div ">
-                                                        <p style={{ height: '64px' }} className="photo_list_p">{nft.name}</p>
-                                                        <div style={{ height: '70px', overflow: 'hidden' }} className="photo_list_photo_div_div">
-                                                            <p className="photo_list_pone">{nft.description}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div className="photo_list_photo_div1">
-                                                        <p className="photo_list_photo_p1">
-                                                            <img className="price-img" src="/price.svg" />
-                                                            <span className="price-text"> {nft.price} ETH</span>
-                                                        </p>
-
-                                                        <button className="photo_list_photo_button" onClick={(e) => setIfRecommend(e, nft)}>{recommeded[i] ? "取消推荐" : "推荐"}</button>
-                                                    </div>
-                                                </div>
-                                            ))
-                                        }
+                                       
 
 
                                     </div>
