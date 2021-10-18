@@ -30,13 +30,19 @@
     }
 
     .market_banner_section .market_banner_photo {
-        margin-left: 80px !important;
+        margin-left: 0 !important;
         justify-content: center !important;
     }
 
     .market_banner .market_banner_section {
         padding-right: 10px;
     }
+
+    .market_banner_nav ul {
+        display: none !important;
+    }
+
+
 }
 
 
@@ -254,7 +260,7 @@ ul {
 }
 
 .photo_list_img_container {
-    height: 2.65rem;
+    height: 318px;
     display: flex;
     align-items: center;
     justify-content: center;

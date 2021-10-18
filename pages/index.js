@@ -66,130 +66,130 @@ export default function HomePage() {
         const random = Math.floor(Math.random() * max);
         setRandom(random)
     }
-        return (
-            <div>
-                <Head>
-                    <meta charset="UTF-8" />
-                    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                    <title>NFC交易市场</title>
-                    <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive" />
+    return (
+        <div>
+            <Head>
+                <meta charset="UTF-8" />
+                <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                <title>NFC交易市场</title>
+                <script async type="text/javascript" src="/static/lib/jquery.min.js" strategy="beforeInteractive" />
 
-                    <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive" />
-                    <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive" />
-                    {/* <link rel="stylesheet" href="../static/css/base.css" /> */}
+                <script async type="text/javascript" src="/static/lib-flexible-2.0/index.js" strategy="beforeInteractive" />
+                <script async type="text/javascript" src="/static/lib/document.js" strategy="beforeInteractive" />
+                {/* <link rel="stylesheet" href="../static/css/base.css" /> */}
 
-                    <link rel="stylesheet" href="/css/commoon.css" />
-                    <link rel="stylesheet" href="/css/index.css" />
+                <link rel="stylesheet" href="/css/commoon.css" />
+                <link rel="stylesheet" href="/css/index.css" />
 
 
-                </Head>
-                <main>
-                    <header className="shortcut ">
-                        <div className="logo">
-                            <h1 className="up">
+            </Head>
+            <main>
+                <header className="shortcut ">
+                    <div className="logo">
+                        <h1 className="up">
+                            <Link href="/">
+                                <a>NFT交易市场</a>
+                            </Link>
+                        </h1>
+                    </div>
+                    <nav className="shortcut_nav">
+                        <ul>
+                            <li>
+                                <input type="search" placeholder="查找" name="search" autoFocus="autofocus" />
+                            </li>
+                            <li className="shortcut_nav_li1">
                                 <Link href="/">
-                                    <a>NFT交易市场</a>
+                                    <a>首页</a>
                                 </Link>
-                            </h1>
-                        </div>
-                        <nav className="shortcut_nav">
-                            <ul>
-                                <li>
-                                    <input type="search" placeholder="查找" name="search" autoFocus="autofocus" />
-                                </li>
-                                <li className="shortcut_nav_li1">
-                                    <Link href="/">
-                                        <a>首页</a>
-                                    </Link>
-                                    <div className="shortcut_nav_div1">
-                                        <a href="#">所有NFT</a>
-                                        <a href="#">新的</a>
-                                        <a href="#">艺术</a>
-                                        <a href="#">音乐</a>
-                                        <a href="#">域名</a>
-                                        <a href="#">虚拟世界</a>
-                                        <a href="#">交易卡</a>
-                                        <a href="#">收藏品</a>
-                                    </div>
-                                </li>
-                                <li className="shortcut_nav_li2">
-                                    <Link href="/create"><a>创作</a></Link>
-                                    <div className="shortcut_nav_div2">
-                                        <a href="#">排名</a>
-                                        <a href="#">活动</a>
-                                    </div>
-                                </li>
-                                <li className="shortcut_nav_li3">
-                                    <Link href="/market"><a>市场</a></Link>
-                                    <div>
-                                        <a href="#">帮助中心</a>
-                                        <a href="#">平台状况</a>
-                                        <a href="#">建议</a>
-                                        <a href="#">社区</a>
-                                        <a href="#">文档</a>
-                                        <a href="#">东西</a>
-                                    </div>
+                                <div className="shortcut_nav_div1">
+                                    <a href="#">所有NFT</a>
+                                    <a href="#">新的</a>
+                                    <a href="#">艺术</a>
+                                    <a href="#">音乐</a>
+                                    <a href="#">域名</a>
+                                    <a href="#">虚拟世界</a>
+                                    <a href="#">交易卡</a>
+                                    <a href="#">收藏品</a>
+                                </div>
+                            </li>
+                            <li className="shortcut_nav_li2">
+                                <Link href="/create"><a>创作</a></Link>
+                                <div className="shortcut_nav_div2">
+                                    <a href="#">排名</a>
+                                    <a href="#">活动</a>
+                                </div>
+                            </li>
+                            <li className="shortcut_nav_li3">
+                                <Link href="/market"><a>市场</a></Link>
+                                <div>
+                                    <a href="#">帮助中心</a>
+                                    <a href="#">平台状况</a>
+                                    <a href="#">建议</a>
+                                    <a href="#">社区</a>
+                                    <a href="#">文档</a>
+                                    <a href="#">东西</a>
+                                </div>
 
-                                </li>
+                            </li>
 
-                                <li><Link href="/personalInfo/"><a>个人</a></Link></li>
+                            <li><Link href="/personalInfo/"><a>个人</a></Link></li>
 
-                            </ul>
+                        </ul>
 
-                        </nav>
-                        <div class="click">
-                            123
-                        </div>
+                    </nav>
+                    <div class="click">
+                        123
+                    </div>
 
-                    </header>
+                </header>
 
-                    <section className="banner ">
-                        <div className="banner-bg">
-                        </div>
-                        <div className="banner-text">
-                            <h1>发现，收集，和<br />
-                                提供超凡的NFT交易服务</h1>
-                            <h2>
-                                就在世界第一大的NFT市场
-                            </h2>
-                            <ul>
-                                <li>
-                                    <a href="/market">
-                                        市场
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="">
-                                        创作
-                                    </a>
-                                </li>
-                            </ul>
-                            <a className="introduce" href="#">在该主页上你将获得的特色服务</a>
-                        </div>
-                        <div className="banner-img">
-                            <div className="banner-works">
-                                <a href="#">
-                                    <img src={nfts.length ? nfts[random].image : '/1.jpg'} alt="" />
-                                    
-                                    <div className="works_introduce">
-                                        <div className="suibian"><img src="/named.jpg" alt="" /></div>
-                                        <div className="suibian2">
-                                            <h3 >{nfts.lenfth ? nfts[random].name : "NFT"}</h3>
-                                            <div >name</div>
-                                        </div>
-                                    </div>
+                <section className="banner ">
+                    <div className="banner-bg">
+                    </div>
+                    <div className="banner-text">
+                        <h1>发现，收集，和<br />
+                            提供超凡的NFT交易服务</h1>
+                        <h2>
+                            就在世界第一大的NFT市场
+                        </h2>
+                        <ul>
+                            <li>
+                                <a href="/market">
+                                    市场
                                 </a>
-                            </div>
+                            </li>
+                            <li>
+                                <a href="">
+                                    创作
+                                </a>
+                            </li>
+                        </ul>
+                        <a className="introduce" href="#">在该主页上你将获得的特色服务</a>
+                    </div>
+                    <div className="banner-img">
+                        <div className="banner-works">
+                            <a href="#">
+                                <img src={nfts.length ? nfts[random].image : '/1.jpg'} alt="" />
+
+                                <div className="works_introduce">
+                                    <div className="suibian"><img src="/named.jpg" alt="" /></div>
+                                    <div className="suibian2">
+                                        <h3 >{nfts.lenfth ? nfts[random].name : "NFT"}</h3>
+                                        <div >name</div>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
+                    </div>
 
-                    </section>
+                </section>
 
-                </main>
+            </main>
 
 
-            </div >
-        )
+        </div >
+    )
 
-} 
-    
+}
+
